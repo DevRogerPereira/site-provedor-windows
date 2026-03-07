@@ -1,17 +1,18 @@
 <?php 
 // ============ FULL PAGE CACHE - ELIMINA 100% DA CARGA NO IIS ============
-// No Windows IIS compartilhado, cada requisição PHP abre 25+ queries MySQL.
-// Isso esgota o pool FastCGI e derruba o servidor (ERR_ADDRESS_UNREACHABLE).
-// Solução: Servir o HTML completo de um arquivo estático no segundo acesso em diante.
+require_once "libs/Mobile_Detect.php";
+$detect = new Mobile_Detect;
+
 $cache_dir_page = __DIR__ . '/cache/';
 if (!is_dir($cache_dir_page)) { @mkdir($cache_dir_page, 0777, true); }
 
-// Montar chave de cache baseada na URL completa (cidade, pagina, etc)
-$cache_key = md5($_SERVER['REQUEST_URI'] . ($_SERVER['QUERY_STRING'] ?? ''));
+// Cache key inclui URL + tipo de dispositivo (mobile/desktop servem HTML diferente)
+$device_type = $detect->isMobile() ? 'mobile' : 'desktop';
+$cache_key = md5($_SERVER['REQUEST_URI'] . ($device_type));
 $cache_file = $cache_dir_page . $cache_key . '.html';
-$cache_ttl = 600; // 10 minutos - tempo para refletir mudanças no painel admin
+$cache_ttl = 600; // 10 minutos
 
-// Se o cache existe e é recente, servir direto SEM TOCAR no PHP/MySQL
+// Se o cache existe e é recente, servir direto SEM processar PHP/MySQL
 if (file_exists($cache_file) && (time() - filemtime($cache_file)) < $cache_ttl) {
     header('Content-Type: text/html; charset=utf-8');
     header('X-Cache: HIT');
@@ -21,9 +22,6 @@ if (file_exists($cache_file) && (time() - filemtime($cache_file)) < $cache_ttl) 
 
 // Cache miss: processar normalmente e capturar o output
 ob_start();
-
-require_once "libs/Mobile_Detect.php";
-$detect = new Mobile_Detect;
 
 // bd
 include("adm/conexao.php");
