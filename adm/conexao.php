@@ -31,6 +31,36 @@ if (mysqli_connect_errno()) trigger_error(mysqli_connect_error());
 
 $sql = mysqli_query($conexao, "SELECT * FROM tb_config WHERE id = '1'");
 
+$tsite = "";
+$tslogan = "";
+$usite = "";
+$sobre = "";
+$sobre_1 = "";
+$sobre_2 = "";
+$sobre_3 = "";
+$sobre_rodape = "";
+$fone_1 = "";
+$fone_2 = "";
+$email = "";
+$endereco = "";
+$seo_descricao = "";
+$seo_keywords = "";
+$app_android = "";
+$app_ios = "";
+$watch_app_android = "";
+$watch_app_ios = "";
+$cnpj = "";
+$social_facebook = "";
+$social_instagram = "";
+$social_youtube = "";
+$social_twitter = "";
+$url_1 = "";
+$url_2 = "";
+$url_3 = "";
+$url_4 = "";
+$url_5 = "";
+$url_area_cliente = "";
+
 while ($linha = mysqli_fetch_array($sql)) {
 	
 	$tsite = isset($linha['tsite']) ? $linha['tsite'] : "";

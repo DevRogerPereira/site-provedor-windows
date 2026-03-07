@@ -130,9 +130,10 @@ function numeroMascara($string)
 
 // inicio background localidade
 
-$dados_tb_config = mysqli_fetch_object(mysqli_query($conexao,"SELECT * FROM tb_config WHERE id = '1'"));
+$dados_tb_config_query = mysqli_query($conexao,"SELECT * FROM tb_config WHERE id = '1'");
+$dados_tb_config = $dados_tb_config_query ? mysqli_fetch_object($dados_tb_config_query) : null;
 
-if(file_exists("images/". $dados_tb_config->foto01) && $dados_tb_config->foto01 == true) {
+if($dados_tb_config && isset($dados_tb_config->foto01) && file_exists("images/". $dados_tb_config->foto01) && $dados_tb_config->foto01 == true) {
 
 	$dados_tb_config_bg = "background: url('".$urlsite."/images/".$dados_tb_config->foto01."') #131372 no-repeat center top;
 	background-size:cover;
