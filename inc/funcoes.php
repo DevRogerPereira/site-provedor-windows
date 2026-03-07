@@ -16,36 +16,15 @@ $res = mysqli_query($conexao, $sql);
 $total = (int) mysqli_fetch_assoc($res)['total'];
 
 if (empty($pagina)) {
-
-    if ($total === 0) {
+    $q = mysqli_query($conexao, "SELECT url FROM planos_localidades WHERE del='N' LIMIT 1");
+    $c_url = $q ? (mysqli_fetch_assoc($q)['url'] ?? null) : null;
+    
+    if ($c_url) {
+        $cidade = $c_url;
+        $pagina = "inicial";
+    } else {
         $pagina = "cidade";
-        // Redireciona para cadastro de cidade
-        //header("Location: /cadastro-cidade.php");
-        //exit;
-
-    } elseif ($total === 1) {
-        $pagina = "cidade";
-
-        $q = mysqli_query($conexao, "SELECT url FROM planos_localidades WHERE del='N' LIMIT 1");
-        $cidade = mysqli_fetch_assoc($q)['url'] ?? null;
-
-        if ($cidade) {
-            // Redirecionamento automático para a cidade única
-            header("Location: " . $urlsite . "/{$cidade}");
-            exit;
-        } else {
-            // fallback seguro
-            //header("Location: /cidade");
-            //exit;
-        }
-
-    } else { // > 1
-        $pagina = "cidade";
-        // Redireciona para listagem/seleção de cidades
-        //header("Location: " . $urlsite . "");
-        //exit;
     }
-
 }
 
 
