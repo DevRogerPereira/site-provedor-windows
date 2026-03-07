@@ -37,5 +37,10 @@ if(isset($include_rodape)) {
 	
 }
 ?>
+<?php
+if(isset($conexao)) {
+    mysqli_close($conexao);
+}
+?>
 </body>
 </html>
