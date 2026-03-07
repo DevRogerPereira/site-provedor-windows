@@ -127,9 +127,30 @@ if($dados_tb_config && isset($dados_tb_config->foto01) && file_exists("images/".
 
 // entrar / form
 
+// Vars globais da cidade (fallback para PHP 8.3)
+$dados_cidade_seo = "";
+$dados_cidade_endereco = "";
+$dados_cidade_funcionamento = "";
+
 if ($cidade == true) {
 	
-	$dados_cidade = mysqli_fetch_array(mysqli_query($conexao,"SELECT * FROM planos_localidades WHERE del = 'N' && url = '".$cidade."'"));
+	$query_cidade = mysqli_query($conexao,"SELECT * FROM planos_localidades WHERE del = 'N' && url = '".$cidade."'");
+	$dados_cidade = mysqli_fetch_array($query_cidade);
+    
+    // Fallback se nulo (evita Trying to access array offset on null)
+    if (!$dados_cidade) {
+        $dados_cidade = [
+            'id' => 0, 
+            'nome' => '', 
+            'url' => '', 
+            'cep' => '', 
+            'endereco' => '', 
+            'funcionamento' => '', 
+            'telefone' => '', 
+            'telefone2' => ''
+        ];
+    }
+
 	$dados_rows_plano_1 = mysqli_num_rows(mysqli_query($conexao,"SELECT * FROM planos WHERE del = 'N' && locl_id = '".$dados_cidade['id']."' && cat_id = '1'"));
 	
 	$dados_rows_plano_2 = mysqli_num_rows(mysqli_query($conexao,"SELECT * FROM planos WHERE del = 'N' && locl_id = '".$dados_cidade['id']."' && cat_id = '2'"));
