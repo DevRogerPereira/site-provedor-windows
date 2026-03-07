@@ -1,6 +1,8 @@
 <?php
 
-if (session_status() == PHP_SESSION_NONE) {
+$request_uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
+// Apenas iniciar a sessão em disco se o usuário estiver na área de administração
+if (strpos($request_uri, '/adm/') !== false && session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 

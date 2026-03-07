@@ -151,20 +151,18 @@ if ($cidade == true) {
         ];
     }
 
-	$dados_rows_plano_1 = mysqli_num_rows(mysqli_query($conexao,"SELECT * FROM planos WHERE del = 'N' && locl_id = '".$dados_cidade['id']."' && cat_id = '1'"));
-	
-	$dados_rows_plano_2 = mysqli_num_rows(mysqli_query($conexao,"SELECT * FROM planos WHERE del = 'N' && locl_id = '".$dados_cidade['id']."' && cat_id = '2'"));
-	$dados_rows_plano_3 = mysqli_num_rows(mysqli_query($conexao,"SELECT * FROM planos WHERE del = 'N' && locl_id = '".$dados_cidade['id']."' && cat_id = '3'"));
-	$dados_rows_plano_4 = mysqli_num_rows(mysqli_query($conexao,"SELECT * FROM planos WHERE del = 'N' && locl_id = '".$dados_cidade['id']."' && cat_id = '4'"));
-	$dados_rows_plano_5 = mysqli_num_rows(mysqli_query($conexao,"SELECT * FROM planos WHERE del = 'N' && locl_id = '".$dados_cidade['id']."' && cat_id = '5'"));
-	$dados_rows_plano_6 = mysqli_num_rows(mysqli_query($conexao,"SELECT * FROM planos WHERE del = 'N' && locl_id = '".$dados_cidade['id']."' && cat_id = '6'"));
-	$dados_rows_plano_7 = mysqli_num_rows(mysqli_query($conexao,"SELECT * FROM planos WHERE del = 'N' && locl_id = '".$dados_cidade['id']."' && cat_id = '7'"));
-	$dados_rows_contratos = mysqli_num_rows(mysqli_query($conexao,"SELECT * FROM contratos WHERE del = 'N' && locl_id = '".$dados_cidade['id']."'"));
-	$dados_rows_blog = mysqli_num_rows(mysqli_query($conexao,"SELECT * FROM blog WHERE del = 'N'"));
-	$dados_rows_depoimentos = mysqli_num_rows(mysqli_query($conexao,"SELECT * FROM depoimentos WHERE del = 'N'"));
-	$dados_rows_duvidas = mysqli_num_rows(mysqli_query($conexao,"SELECT * FROM duvidas WHERE del = 'N'"));
-	$dados_rows_slides = mysqli_num_rows(mysqli_query($conexao,"SELECT * FROM slides WHERE del = 'N' && locl_id = '".$dados_cidade['id']."'"));
-	$dados_rows_contratos = mysqli_num_rows(mysqli_query($conexao,"SELECT * FROM contratos WHERE del = 'N' && locl_id = '".$dados_cidade['id']."'"));
+	$dados_rows_plano_1 = mysqli_fetch_row(mysqli_query($conexao,"SELECT COUNT(id) FROM planos WHERE del = 'N' && locl_id = '".$dados_cidade['id']."' && cat_id = '1'"))[0];
+	$dados_rows_plano_2 = mysqli_fetch_row(mysqli_query($conexao,"SELECT COUNT(id) FROM planos WHERE del = 'N' && locl_id = '".$dados_cidade['id']."' && cat_id = '2'"))[0];
+	$dados_rows_plano_3 = mysqli_fetch_row(mysqli_query($conexao,"SELECT COUNT(id) FROM planos WHERE del = 'N' && locl_id = '".$dados_cidade['id']."' && cat_id = '3'"))[0];
+	$dados_rows_plano_4 = mysqli_fetch_row(mysqli_query($conexao,"SELECT COUNT(id) FROM planos WHERE del = 'N' && locl_id = '".$dados_cidade['id']."' && cat_id = '4'"))[0];
+	$dados_rows_plano_5 = mysqli_fetch_row(mysqli_query($conexao,"SELECT COUNT(id) FROM planos WHERE del = 'N' && locl_id = '".$dados_cidade['id']."' && cat_id = '5'"))[0];
+	$dados_rows_plano_6 = mysqli_fetch_row(mysqli_query($conexao,"SELECT COUNT(id) FROM planos WHERE del = 'N' && locl_id = '".$dados_cidade['id']."' && cat_id = '6'"))[0];
+	$dados_rows_plano_7 = mysqli_fetch_row(mysqli_query($conexao,"SELECT COUNT(id) FROM planos WHERE del = 'N' && locl_id = '".$dados_cidade['id']."' && cat_id = '7'"))[0];
+	$dados_rows_contratos = mysqli_fetch_row(mysqli_query($conexao,"SELECT COUNT(id) FROM contratos WHERE del = 'N' && locl_id = '".$dados_cidade['id']."'"))[0];
+	$dados_rows_blog = mysqli_fetch_row(mysqli_query($conexao,"SELECT COUNT(id) FROM blog WHERE del = 'N'"))[0];
+	$dados_rows_depoimentos = mysqli_fetch_row(mysqli_query($conexao,"SELECT COUNT(id) FROM depoimentos WHERE del = 'N'"))[0];
+	$dados_rows_duvidas = mysqli_fetch_row(mysqli_query($conexao,"SELECT COUNT(id) FROM duvidas WHERE del = 'N'"))[0];
+	$dados_rows_slides = mysqli_fetch_row(mysqli_query($conexao,"SELECT COUNT(id) FROM slides WHERE del = 'N' && locl_id = '".$dados_cidade['id']."'"))[0];
 
 	$tb_planos_1 = mysqli_fetch_object(mysqli_query($conexao,"SELECT * FROM planos WHERE del = 'N' && locl_id = '".$dados_cidade['id']."' && cat_id = '1' && tipo_id = 'S' ORDER BY valor ASC"));
 	$tb_planos_2 = mysqli_fetch_object(mysqli_query($conexao,"SELECT * FROM planos WHERE del = 'N' && locl_id = '".$dados_cidade['id']."' && cat_id = '2' && tipo_id = 'S' ORDER BY valor ASC"));
