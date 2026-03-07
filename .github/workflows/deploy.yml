@@ -7,11 +7,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: FTP Deploy Locaweb Windows
-      uses: locaweb/ftp-deploy@1.0.0
+    - name: FTP Deploy
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
-        host: ${{ secrets.HOST }} 
-        user: ${{ secrets.USER }}
+        server: ${{ secrets.HOST }} 
+        username: ${{ secrets.USER }}
         password: ${{ secrets.PASS }}
-        localDir: "."
-        remoteDir: "web"
+        server-dir: "web/"
+        local-dir: "./"
