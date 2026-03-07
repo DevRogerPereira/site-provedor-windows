@@ -6,7 +6,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 date_default_timezone_set('America/Sao_Paulo');
 
-if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on'){
+if((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') || (isset($_SERVER['HTTP_X_CLIENT_PROTO']) && $_SERVER['HTTP_X_CLIENT_PROTO'] === 'https')){
     
 	$url_server = "https://";
 	
@@ -14,6 +14,10 @@ if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on'){
     
 	$url_server = "http://";
 	
+	// Força o redirecionamento para HTTPS
+	header("HTTP/1.1 301 Moved Permanently");
+	header("Location: https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
+	exit();
 }
 
 $urlsite = $url_server . $_SERVER['HTTP_HOST'] . "";
