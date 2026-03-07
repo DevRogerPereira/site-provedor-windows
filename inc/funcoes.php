@@ -15,16 +15,13 @@ $sql = "SELECT COUNT(*) AS total FROM planos_localidades WHERE del = 'N'";
 $res = mysqli_query($conexao, $sql);
 $total = (int) mysqli_fetch_assoc($res)['total'];
 
-if (empty($pagina)) {
+if (empty($pagina) || $pagina == "cidade") {
     $q = mysqli_query($conexao, "SELECT url FROM planos_localidades WHERE del='N' LIMIT 1");
-    $c_url = $q ? (mysqli_fetch_assoc($q)['url'] ?? null) : null;
-    
-    if ($c_url) {
-        $cidade = $c_url;
-        $pagina = "inicial";
-    } else {
-        $pagina = "cidade";
+    if ($q && mysqli_num_rows($q) > 0) {
+        $row = mysqli_fetch_assoc($q);
+        $cidade = $row['url'];
     }
+    $pagina = "inicial";
 }
 
 
