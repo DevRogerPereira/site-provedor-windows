@@ -197,24 +197,17 @@ if ($cidade == true) {
 		$dados_slide_nome = $dados_cidade['nome'];
 		$dados_cidade_seo = " em " . $dados_cidade['nome'];
 		
-	}
-
-	if (isset($dados_cidade['cep'])) {
-		
-		$dados_cidade_cep = "<br>" . $dados_cidade['cep'];
-		
-	}
-
-	if (isset($dados_cidade['endereco']) == true) {
-		
+	if (isset($dados_cidade['endereco']) && $dados_cidade['endereco'] != '') {
 		$dados_cidade_endereco = nl2br($dados_cidade['endereco']) . $dados_ini_cidade . $dados_cidade_cep;
-		
-	}
-	if (isset($dados_cidade['funcionamento'])) {
-		
+	} else {
+        $dados_cidade_endereco = "";
+    }
+    
+	if (isset($dados_cidade['funcionamento']) && $dados_cidade['funcionamento'] != '') {
 		$dados_cidade_funcionamento = nl2br($dados_cidade['funcionamento']);
-		
-	}
+	} else {
+        $dados_cidade_funcionamento = "";
+    }
 	if (isset($dados_cidade['telefone']) == true) {
 		
 		$dados_cidade_telefone = numeroMascara(limpar_texto($dados_cidade['telefone']));
