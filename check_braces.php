@@ -1,9 +1,17 @@
 <?php
-$file = 'inc/funcoes.php';
-$lines = file($file);
-$out = "Lines 195 to 215 on SERVER:\n";
-for($i = 194; $i < min(215, count($lines)); $i++) {
-    $out .= ($i+1) . ": " . $lines[$i];
+echo "Diretorio Atual: " . __DIR__ . "\n";
+echo "Listagem:\n";
+$dirs = glob('*', GLOB_ONLYDIR);
+foreach($dirs as $d) {
+    if ($d == "divinopolis" || $d == "inc") {
+        echo "=> $d\n";
+    }
 }
-echo $out;
+echo "Tenta ler divinopolis/inc/funcoes.php:\n";
+if (file_exists("divinopolis/inc/funcoes.php")) {
+    $lines = file("divinopolis/inc/funcoes.php");
+    echo "Existe! Linhas: " . count($lines) . "\n";
+} else {
+    echo "Nao existe.\n";
+}
 ?>
