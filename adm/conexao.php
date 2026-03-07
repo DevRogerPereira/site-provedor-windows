@@ -23,7 +23,7 @@ header('Content-Type: text/html; charset=utf-8');
 $server = "linknet_2026_2.mysql.dbaas.com.br";
 $banco = "linknet_2026_2";
 $user = "linknet_2026_2";
-$senha = "LnK@NE9";
+$senha = "Emf@844888";
 
 $conexao = new mysqli($server, $user, $senha, $banco);
 
