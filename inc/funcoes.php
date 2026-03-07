@@ -197,6 +197,14 @@ if ($cidade == true) {
 		$dados_slide_nome = $dados_cidade['nome'];
 		$dados_cidade_seo = " em " . $dados_cidade['nome'];
 		
+	}
+
+	if (isset($dados_cidade['cep'])) {
+		$dados_cidade_cep = "<br>" . $dados_cidade['cep'];
+	} else {
+        $dados_cidade_cep = "";
+    }
+
 	if (isset($dados_cidade['endereco']) && $dados_cidade['endereco'] != '') {
 		$dados_cidade_endereco = nl2br($dados_cidade['endereco']) . $dados_ini_cidade . $dados_cidade_cep;
 	} else {
