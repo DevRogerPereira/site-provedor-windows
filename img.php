@@ -114,7 +114,7 @@ readfile($cache_path);
 /*
  * Add clean-up code here
  */
-@imagedestroy($source_gdim);
-@imagedestroy($temp_gdim);
-@imagedestroy($desired_gdim);
+if(isset($source_gdim) && $source_gdim) { @imagedestroy($source_gdim); unset($source_gdim); }
+if(isset($temp_gdim) && $temp_gdim) { @imagedestroy($temp_gdim); unset($temp_gdim); }
+if(isset($desired_gdim) && $desired_gdim) { @imagedestroy($desired_gdim); unset($desired_gdim); }
 ?>
