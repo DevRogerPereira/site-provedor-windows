@@ -3,6 +3,11 @@
 $request_uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
 // Apenas iniciar a sessão em disco se o usuário estiver na área de administração
 if (strpos($request_uri, '/adm/') !== false && session_status() == PHP_SESSION_NONE) {
+    // BLINDA o timeout (60segundos de tela preta) de Cold Start no Windows IIS:
+    // Impede o Garbage Collector de varrer o diretório inteiro pra apagar sessoes velhas
+    ini_set('session.gc_probability', 0);
+    // Remove as sessoes deste site da lixeira compartilhada lenta da Locaweb p/ uma pasta local isolada
+    session_save_path(__DIR__ . '/sess'); 
     session_start();
 }
 
