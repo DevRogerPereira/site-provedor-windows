@@ -24,12 +24,16 @@ $urlsite = $url_server . $_SERVER['HTTP_HOST'] . "";
 
 header('Content-Type: text/html; charset=utf-8');
 
-$server = "linknet_2026_2.mysql.dbaas.com.br";
-$banco = "linknet_2026_2";
-$user = "linknet_2026_2";
+$server = "linknet_2026.mysql.dbaas.com.br";
+$banco = "linknet_2026";
+$user = "linknet_2026";
 $senha = "Emf@844888";
 
-$conexao = new mysqli($server, $user, $senha, $banco);
+// O Windows (IIS) pode tentar IPv6 primeiro mesmo o server sendo IPv4, causando +1000ms de latência
+// Solução: Fazer a resolução de DNS p/ IP forçado no PHP antes de se conectar
+$ip_server = gethostbyname($server);
+
+$conexao = new mysqli($ip_server, $user, $senha, $banco);
 
 if (mysqli_connect_errno()) trigger_error(mysqli_connect_error());
 

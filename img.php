@@ -15,6 +15,29 @@ $source_path = $_GET['img'];
  * Add file validation code here
  */
 
+// ==== INÍCIO CACHE SYSTEM ====
+$cache_dir = 'images/cache/';
+if (!file_exists($cache_dir)) {
+    @mkdir($cache_dir, 0777, true);
+}
+
+// Criar um nome único e seguro para a imagem cache baseada no arquivo e nas dimensões
+$md5_filename = md5($source_path) . '_' . DESIRED_IMAGE_WIDTH . 'x' . DESIRED_IMAGE_HEIGHT . '.jpg';
+$cache_path = $cache_dir . $md5_filename;
+
+// Se o cache já existe, servimos direto e paramos o processamento aqui!
+if (file_exists($cache_path)) {
+    header('Content-Type: image/jpeg');
+    header('Cache-Control: public, max-age=31536000'); // 1 ano cache de brower tb
+    readfile($cache_path);
+    exit;
+}
+// ==== FIM CACHE SYSTEM VERIFICATION ====
+
+if(!file_exists($source_path)) {
+	die("Image not found");
+}
+
 list($source_width, $source_height, $source_type) = getimagesize($source_path);
 
 switch ($source_type) {
@@ -80,10 +103,18 @@ imagecopy(
  * Alternatively, you can save the image in file-system or database
  */
 
-header('Content-type: image/jpeg');
-imagejpeg($desired_gdim, null, 92);
+// ==== SALVA NO CACHE FÍSICO ====
+imagejpeg($desired_gdim, $cache_path, 92);
+
+// Exibe a imagem salva
+header('Content-Type: image/jpeg');
+header('Cache-Control: public, max-age=31536000');
+readfile($cache_path);
 
 /*
  * Add clean-up code here
  */
+@imagedestroy($source_gdim);
+@imagedestroy($temp_gdim);
+@imagedestroy($desired_gdim);
 ?>
