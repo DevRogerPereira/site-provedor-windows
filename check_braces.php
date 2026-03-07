@@ -2,25 +2,27 @@
 $file = 'inc/funcoes.php';
 $code = file_get_contents($file);
 $tokens = token_get_all($code);
-$braces = 0;
-$line = 0;
+$stack = []; // store line numbers of open braces
 foreach ($tokens as $token) {
     if (is_array($token)) {
-        $line = $token[2];
-        if ($token[0] == T_CURLY_OPEN || $token[1] == '{') $braces++;
-        if ($token[1] == '}') $braces--;
+        if ($token[0] == T_CURLY_OPEN || $token[1] == '{') {
+            $stack[] = $token[2];
+        } else if ($token[1] == '}') {
+            array_pop($stack);
+        }
     } else {
-        if ($token == '{') $braces++;
-        if ($token == '}') $braces--;
-    }
-    if ($braces < 0) {
-        echo "Extra closing brace at line $line\n";
-        break;
+        if ($token == '{') {
+            // Find approximate line number by counting newlines up to this point
+            // This is just a rough fallback since single char tokens don't have line numbers in token_get_all
+            $stack[] = "unknown"; 
+        } else if ($token == '}') {
+            array_pop($stack);
+        }
     }
 }
-if ($braces > 0) {
-    echo "Unclosed brace! Total open: $braces. Last line seen: $line\n";
-} elseif ($braces == 0) {
-    echo "Braces are balanced according to token_get_all.\n";
+if (!empty($stack)) {
+    echo "Unclosed braces opened at lines: " . implode(", ", $stack) . "\n";
+} else {
+    echo "No unclosed braces!\n";
 }
 ?>
