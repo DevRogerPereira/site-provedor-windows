@@ -1,0 +1,28 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# PHP
+phpinfo.php
+
+# Environment / Sensitive
+.env
+*.log
+
+# Backups antigos
+web2025-01-09/
+www-28012026/
+
+# User uploads (imagens dinâmicas do admin)
+adm/img/
+
+# Temp files
+*.tmp
+*.bak

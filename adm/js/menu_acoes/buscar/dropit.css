@@ -1,0 +1,85 @@
+/*
+ * Dropit v1.1.0
+ * http://dev7studios.com/dropit
+ *
+ * Copyright 2012, Dev7studios
+ * Free to use and abuse under the MIT license.
+ * http://www.opensource.org/licenses/mit-license.php
+ */
+
+/* These styles assume you are using ul and li */
+.dropit .dropit-trigger { 
+	position: relative; 
+}
+
+.menu-acao ul{
+	display:none;
+}
+.menu-acao ul.dropit-submenu {
+    position: absolute;
+    top: 100%;
+    left: 0; /* dropdown left or right */
+    z-index: 99999;
+    display: none;
+    min-width: 60px;
+    list-style: none;
+	background-color:#fff;
+	border:1px solid #b2b2b2;
+	padding:6px 0;
+	margin:2px 0 0 1px;
+		-webkit-border-radius:2px;
+		-moz-border-radius:2px;
+		border-radius:2px;
+		-webkit-box-shadow:0px 1px 3px rgba(0,0,0,0.15);
+		-moz-box-shadow:0px 1px 3px rgba(0,0,0,0.15);
+		box-shadow:0px 1px 3px rgba(0,0,0,0.15);
+}
+.menu-acao ul.dropit-submenu a {
+	display:block;
+	font-size:16px;
+	text-decoration:none;
+	line-height:25px;
+	color:#7a868e;
+	padding:0 15px;
+}
+.menu-acao ul.dropit-submenu a:hover{
+	background:#7f8ba1;
+	color:#fff;
+	text-decoration:none;
+}
+
+.menu-user ul{
+	display:none;
+}
+.menu-user ul.dropit-submenu {
+    position: absolute;
+    top: 120%;
+    left: -90px; /* dropdown left or right */
+    z-index: 99999;
+    display: none;
+    min-width: 120px;
+    list-style: none;
+	background-color:#fff;
+	border:1px solid #b2b2b2;
+	padding:6px 0;
+	margin:2px 0 0 1px;
+		-webkit-border-radius:2px;
+		-moz-border-radius:2px;
+		border-radius:2px;
+		-webkit-box-shadow:0px 1px 3px rgba(0,0,0,0.15);
+		-moz-box-shadow:0px 1px 3px rgba(0,0,0,0.15);
+		box-shadow:0px 1px 3px rgba(0,0,0,0.15);
+}
+.menu-user ul.dropit-submenu a {
+	display:block;
+	font-size:18px;
+	text-decoration:none;
+	line-height:25px;
+	color:#7a868e;
+	padding:0 15px;
+}
+.menu-user ul.dropit-submenu a:hover{
+	background:#7f8ba1;
+	color:#fff;
+	text-decoration:none;
+}

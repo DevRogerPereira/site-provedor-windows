@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload de Fotos</title>
+    <style>
+        #upload-area {
+            border: 2px dashed #ccc;
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+        }
+        #upload-area.hover {
+            border-color: #333;
+        }
+        .preview img {
+            width: 100px;
+            margin: 5px;
+        }
+        .error {
+            color: red;
+        }
+        #submit-btn {
+            display: none;
+            margin-top: 20px;
+        }
+        #file-count {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div id="upload-area">
+    <form id="upload-form" enctype="multipart/form-data">
+        <input type="hidden" id="cliente_id" name="cliente_id" value="1">
+        <a href="#" id="upload-link">Carregar Foto(s)</a>
+        <input type="file" id="file-input" name="files[]" multiple style="display: none;">
+        <div id="error-message" class="error"></div>
+        <div id="file-count">Arraste e solte as fotos aqui ou clique em "Carregar Foto(s)".</div>
+        <div class="preview" id="preview"></div>
+        <button type="submit" id="submit-btn">Enviar</button>
+    </form>
+</div>
+
+<script>
+    const uploadArea = document.getElementById('upload-area');
+    const uploadLink = document.getElementById('upload-link');
+    const fileInput = document.getElementById('file-input');
+    const preview = document.getElementById('preview');
+    const errorMessage = document.getElementById('error-message');
+    const fileCount = document.getElementById('file-count');
+    const uploadForm = document.getElementById('upload-form');
+    const submitBtn = document.getElementById('submit-btn');
+
+    // Abrir a seleção de arquivos ao clicar no link
+    uploadLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        fileInput.click();
+    });
+
+    // Atualizar a pré-visualização ao selecionar arquivos
+    fileInput.addEventListener('change', handleFiles);
+
+    // Arrastar e soltar arquivos na área de upload
+    uploadArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadArea.classList.add('hover');
+    });
+
+    uploadArea.addEventListener('dragleave', () => {
+        uploadArea.classList.remove('hover');
+    });
+
+    uploadArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadArea.classList.remove('hover');
+        handleFiles(e.dataTransfer);
+    });
+
+    function handleFiles(files) {
+        errorMessage.textContent = ''; // Limpar mensagens de erro
+        preview.innerHTML = ''; // Limpar pré-visualização
+        submitBtn.style.display = 'none'; // Esconder o botão inicialmente
+
+        let fileList = files.files || fileInput.files;
+
+        // Limitar a quantidade de arquivos a 8
+        if (fileList.length > 8) {
+            errorMessage.textContent = 'Você pode enviar no máximo 8 fotos.';
+            fileInput.value = ''; // Limpar o input de arquivos
+            return;
+        }
+
+        // Exibir a quantidade de fotos selecionadas
+        if (fileList.length > 0) {
+            fileCount.textContent = `${fileList.length} foto(s) selecionada(s)`;
+        } else {
+            fileCount.textContent = 'Arraste e solte as fotos aqui ou clique em "Carregar Foto(s)".';
+        }
+
+        for (let i = 0; i < fileList.length; i++) {
+            let file = fileList[i];
+
+            // Verificar o tipo de arquivo
+            if (!['image/jpeg', 'image/png'].includes(file.type)) {
+                errorMessage.textContent = 'Permitido apenas arquivos .jpg, .jpeg e .png.';
+                return;
+            }
+
+            // Verificar o tamanho do arquivo (máximo 5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                errorMessage.textContent = 'O arquivo deve ter no máximo 5MB.';
+                return;
+            }
+
+            // Pré-visualização das imagens
+            let reader = new FileReader();
+            reader.onload = function (e) {
+                let img = document.createElement('img');
+                img.src = e.target.result;
+                preview.appendChild(img);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Mostrar o botão "Enviar" se pelo menos uma foto for selecionada
+        if (fileList.length > 0) {
+            submitBtn.style.display = 'block';
+        }
+    }
+
+    // Enviar arquivos via AJAX
+    uploadForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        // Exibir "Carregando..." e desabilitar o botão
+        submitBtn.textContent = 'Carregando...';
+        submitBtn.disabled = true;
+
+        let formData = new FormData(uploadForm);
+
+        fetch('upload.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(result => {
+            if (result.success) {
+                preview.innerHTML = 'Upload realizado com sucesso!';
+                submitBtn.style.display = 'none'; // Esconder o botão novamente após o upload
+                fileCount.textContent = 'Arraste e solte as fotos aqui ou clique em "Carregar Foto(s)".'; // Resetar a contagem
+            } else {
+                errorMessage.textContent = result.error;
+            }
+
+            // Reverter o botão para o estado normal após o upload
+            submitBtn.textContent = 'Enviar';
+            submitBtn.disabled = false;
+        })
+        .catch(error => {
+            errorMessage.textContent = 'Erro ao fazer upload.';
+
+            // Reverter o botão para o estado normal em caso de erro
+            submitBtn.textContent = 'Enviar';
+            submitBtn.disabled = false;
+        });
+    });
+</script>
+
+</body>
+</html>
