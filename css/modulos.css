@@ -2648,6 +2648,34 @@ hr,ul:after{clear:both}body{font:13px/1.5 cairoregular,Arial,"Liberation Sans",F
     font-style: normal;
 
 }
+
+/* Melhor Plano - selos flutuantes (propaganda) */
+.melhorplano-selos-flutuantes{
+	position:fixed;
+	right:20px;
+	bottom:160px;
+	z-index:99998;
+	display:flex;
+	flex-direction:column;
+	gap:12px;
+	align-items:flex-end;
+	pointer-events:none; /* não intercepta cliques fora do banner */
+}
+.melhorplano-selos-flutuantes a{
+	pointer-events:auto;
+	display:block;
+}
+.melhorplano-selos-flutuantes img{
+	display:block;
+	height:auto;
+	max-width:calc(100vw - 40px);
+}
+.melhorplano-selo-2026 img{
+	width:350px;
+}
+.melhorplano-selo-2025 img{
+	width:250px;
+}
 @font-face {
     font-family: 'montserratextrabold';
     src: url('<?php echo $urlsite ?>/css/fonts/montserrat-extrabold_0-webfont.woff2') format('woff2'),

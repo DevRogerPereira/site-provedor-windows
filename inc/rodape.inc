@@ -323,6 +323,15 @@ function abreFecha(sel) {
     });
 </script>
 
+<section class="melhorplano-selos-flutuantes" aria-label="Selos Melhor Provedor">
+	<a class="melhorplano-selo melhorplano-selo-2026" href="https://melhorplano.net/internet-banda-larga/mg/divinopolis#premio" title="Vencedor Melhor Provedor Divinopolis 2026">
+		<img src="https://cdn.melhorplano.net/strapi/melhor_provedor_municipal_2026_d68c7f659c.svg" alt="Vencedor Melhor Provedor Divinopolis 2026">
+	</a>
+	<a class="melhorplano-selo melhorplano-selo-2025" href="https://melhorplano.net/internet-banda-larga/mg/divinopolis#premio" title="Vencedor Melhor Provedor Divinopolis 2025">
+		<img src="https://cdn.melhorplano.net/cms/2025/01/24/67939e9cc2db3selo-melhor-provedor-municipal-2025.svg" alt="Vencedor Melhor Provedor Divinopolis 2025">
+	</a>
+</section>
+
 <script>
 	const cookieAlert = document.querySelector("#cookie");
 	const cookieAcceptButton = document.querySelector("#cookie__accept");
