@@ -15,3 +15,37 @@ jobs:
         password: ${{ secrets.PASS }}
         server-dir: "web/"
         local-dir: "./"
+
+    - name: Clear PHP cache (OPcache/APCu)
+      shell: bash
+      run: |
+        set -euo pipefail
+        if ! command -v curl >/dev/null 2>&1; then
+          sudo apt-get update
+          sudo apt-get install -y curl
+        fi
+
+        HOST_RAW="${{ secrets.HOST }}"
+        # Se vier com porta (ex: host:21), remove a porta para montar a URL HTTP.
+        HOST="${HOST_RAW%%:*}"
+
+        # Tentativas comuns dependendo de como o `server-dir` do FTP mapeia para a URL pública.
+        # 1) /reset.php ou 2) /web/reset.php, usando http e https.
+        urls=(
+          "https://${HOST}/reset.php"
+          "http://${HOST}/reset.php"
+          "https://${HOST}/web/reset.php"
+          "http://${HOST}/web/reset.php"
+        )
+
+        echo "Limpando cache via reset.php..."
+        for url in "${urls[@]}"; do
+          echo "Tentando: $url"
+          if curl -fsSL "$url" >/dev/null 2>&1; then
+            echo "Cache limpo com sucesso em: $url"
+            exit 0
+          fi
+        done
+
+        echo "Falha ao limpar cache via reset.php. Verifique se o arquivo está publicado e se a URL pública responde."
+        exit 1
