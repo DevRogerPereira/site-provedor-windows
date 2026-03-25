@@ -2538,8 +2538,8 @@ hr,ul:after{clear:both}body{font:13px/1.5 cairoregular,Arial,"Liberation Sans",F
 /* Melhor Plano - selos flutuantes (propaganda - mobile) */
 .melhorplano-selos-flutuantes{
 	position:fixed;
-	right:10px;
-	bottom:150px;
+	right:20px;
+	bottom:120px;
 	z-index:99998;
 	display:flex;
 	flex-direction:column;
