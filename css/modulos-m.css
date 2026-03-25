@@ -2553,22 +2553,24 @@ hr,ul:after{clear:both}body{font:13px/1.5 cairoregular,Arial,"Liberation Sans",F
 }
 .melhorplano-selos-flutuantes img{
 	display:block;
-	height:auto;
+	width:150px;
+	height:87.02px;
+	object-fit:contain;
+	transition: width 0.2s ease, height 0.2s ease;
 	max-width:calc(100vw - 20px);
+	max-height:203.05px;
+}
+.melhorplano-selos-flutuantes a:hover img{
+	width:350px;
+	height:203.05px;
 }
 .melhorplano-selo-2026 img{
-	width:320px;
-	max-width:calc(100vw - 20px);
+	width:150px;
+	height:87.02px;
 }
 .melhorplano-selo-2025 img{
-	width:220px;
-	max-width:calc(100vw - 20px);
-}
-
-@media (max-width: 380px){
-	.melhorplano-selo-2025{
-		display:none;
-	}
+	width:150px;
+	height:87.02px;
 }
 @font-face {
     font-family: 'montserratextrabold';
