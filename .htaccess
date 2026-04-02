@@ -29,17 +29,18 @@ satisfy all
 	# INDEX
 	DirectoryIndex index.php
 
+	# ADM (antes das INTERNAS para evitar que /adm seja capturado como cidade)
+	RewriteRule ^adm$ /adm/ [R=301,L]
+	RewriteRule ^([a-z]{3})/$ adm/index.php?pagina=entrar&url= [NC,L]
+	RewriteRule ^([a-z]{3})/([a-z0-9_-]+)$ adm/index.php?pagina=$2&url= [NC,L]
+	RewriteRule ^([a-z]{3})/([a-z0-9_-]+)/([a-z0-9_-]+)$ adm/index.php?pagina=$2&url=$3 [NC,L]
+	RewriteRule ^([a-z]{3})/([a-z0-9_-]+)/([a-z0-9_-]+)/([a-z0-9_-]+)/$ adm/index.php?pagina=$2&url=$3&id=$4 [NC,L]
+
 	# INTERNAS
 	RewriteRule ^([a-z0-9_-]+)$ index.php?cidade=$1&pagina=inicial [NC]
 	RewriteRule ^([a-z0-9_-]+)/([a-z0-9_-]+)/$ index.php?cidade=$1&pagina=$2 [NC]
 	RewriteRule ^([a-z0-9_-]+)/([a-z0-9_-]+)/([a-z0-9_-]+)/$ index.php?cidade=$1&pagina=$2&url=$3 [NC]
 	RewriteRule ^([a-z0-9_-]+)/([a-z0-9_-]+)/([a-z0-9_-]+)/([a-z0-9_-]+)$ index.php?cidade=$1&pagina=$2&url=$3&id=$4 [NC]
-	
-	# ADM
-	RewriteRule ^([a-z]{3})/$ adm/index.php?pagina=entrar&url= [NC]
-	RewriteRule ^([a-z]{3})/([a-z0-9_-]+)$ adm/index.php?pagina=$2&url= [NC]
-	RewriteRule ^([a-z]{3})/([a-z0-9_-]+)/([a-z0-9_-]+)$ adm/index.php?pagina=$2&url=$3 [NC]
-	RewriteRule ^([a-z]{3})/([a-z0-9_-]+)/([a-z0-9_-]+)/([a-z0-9_-]+)/$ adm/index.php?pagina=$2&url=$3&id=$4 [NC]
 
 	# Bloqueio Listagem
 	Options -Indexes

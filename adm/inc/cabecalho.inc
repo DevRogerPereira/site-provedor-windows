@@ -13,7 +13,7 @@
                 	<div class="col grid-3">
                     	<div class="col grid-10 tp_perfil_box">
                             <a href="<?php echo $urlsite . "/adm/resumo" ?>" class="tp_perfil_nome"><?php echo $user_nome_responsavel ?></a>
-                            <a href="<?php echo $urlsite . "/adm/resumo" ?>" class="tp_perfil_cidade">Em Goiânia</a>
+                            <a href="<?php echo $urlsite . "/adm/resumo" ?>" class="tp_perfil_cidade">Em Divinópolis</a>
                         </div>
                     	<div id="fd_acoes_box" class="col grid-2">
                             <ul class="menu_user">
