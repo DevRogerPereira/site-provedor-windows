@@ -7,7 +7,11 @@ if (strpos($request_uri, '/adm/') !== false && session_status() == PHP_SESSION_N
     // Impede o Garbage Collector de varrer o diretório inteiro pra apagar sessoes velhas
     ini_set('session.gc_probability', 0);
     // Remove as sessoes deste site da lixeira compartilhada lenta da Locaweb p/ uma pasta local isolada
-    session_save_path(__DIR__ . '/sess'); 
+    $sess_path = __DIR__ . '/sess';
+    if (!is_dir($sess_path)) {
+        @mkdir($sess_path, 0700, true);
+    }
+    session_save_path($sess_path);
     session_start();
 }
 

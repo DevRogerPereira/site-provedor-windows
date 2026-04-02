@@ -855,9 +855,13 @@ if(isset($_SESSION["usuarioID"]) == true){
 	}
 
 } else {
-	
+
+	// Visitante nao autenticado tentando acessar pagina protegida
+	if($pagina != "entrar" && $pagina != "entrar-erro" && $pagina != "entrar-valida") {
+		header("Location: " . $urlsite . "/adm/entrar");
+		exit();
+	}
+
 }
-
-
 
 ?>

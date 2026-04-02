@@ -18,7 +18,9 @@ $bd_banco = "dribletelecom2";
 $bd_user = "dribletelecom2";
 $bd_senha = "F_@f830f824dhc";
 
-$link = new mysqli($bd_server, $bd_user, $bd_senha, $bd_banco);
+// O Windows (IIS) pode tentar IPv6 primeiro mesmo o server sendo IPv4, causando +1000ms de latencia
+$bd_ip = gethostbyname($bd_server);
+$link = new mysqli($bd_ip, $bd_user, $bd_senha, $bd_banco);
 if(mysqli_connect_errno()) trigger_error(mysqli_connect_error());
 
   global $_SG;
@@ -69,7 +71,7 @@ function protegePagina() {
 function expulsaVisitante() {
 	global $_SG;
 
-	session_destroy;
+	session_destroy();
 	unset($_SESSION['usuarioID'], $_SESSION['usuarioNome'], $_SESSION['usuarioLogin'], $_SESSION['usuarioSenha']);
 
 	header("Location: ".$_SG['paginaLogin']);

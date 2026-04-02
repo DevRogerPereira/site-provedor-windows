@@ -6,7 +6,7 @@ $ht_url = isset($_GET['url']) ? $_GET['url'] : "";
 $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : "";
 
 // define pagina entrar
-if(isset($pagina) == false){
+if(empty($pagina)){
 	$pagina = "entrar";
 }
 
