@@ -7,10 +7,44 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: FTP Deploy
+    # O FTP do Windows/IIS da Locaweb da erro 550 transitorio (arquivo em uso por
+    # outro processo). Tentamos ate 3x, com pausa pro lock liberar.
+    - name: FTP Deploy (tentativa 1)
+      id: ftp1
+      continue-on-error: true
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
-        server: ${{ secrets.HOST }} 
+        server: ${{ secrets.HOST }}
+        username: ${{ secrets.USER }}
+        password: ${{ secrets.PASS }}
+        server-dir: "web/"
+        local-dir: "./"
+
+    - name: Aguarda lock liberar
+      if: steps.ftp1.outcome == 'failure'
+      run: sleep 45
+
+    - name: FTP Deploy (tentativa 2)
+      id: ftp2
+      if: steps.ftp1.outcome == 'failure'
+      continue-on-error: true
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: ${{ secrets.HOST }}
+        username: ${{ secrets.USER }}
+        password: ${{ secrets.PASS }}
+        server-dir: "web/"
+        local-dir: "./"
+
+    - name: Aguarda lock liberar (2)
+      if: steps.ftp1.outcome == 'failure' && steps.ftp2.outcome == 'failure'
+      run: sleep 90
+
+    - name: FTP Deploy (tentativa 3)
+      if: steps.ftp1.outcome == 'failure' && steps.ftp2.outcome == 'failure'
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: ${{ secrets.HOST }}
         username: ${{ secrets.USER }}
         password: ${{ secrets.PASS }}
         server-dir: "web/"
