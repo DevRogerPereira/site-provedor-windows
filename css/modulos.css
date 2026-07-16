@@ -763,7 +763,10 @@
 }
 #ini-planos ul {
 	list-style:none;
-	display:block;
+	/* flex: todos os cards da linha ficam com a MESMA altura, independente do conteúdo */
+	display:flex;
+	flex-wrap:wrap;
+	align-items:stretch;
 	padding:0;
 	margin:0;
 	z-index:0;
@@ -772,6 +775,9 @@
 	text-align:left;
 	float:left;
 	width:32.33%;
+	/* coluna flex: o bloco de preço/botão ancora no rodapé do card */
+	display:flex;
+	flex-direction:column;
 	overflow:hidden;
 	padding:30px 40px;
 	margin:0 0.5% 2% 0.5%;
@@ -791,6 +797,12 @@
 }
 #ini-planos li:hover {
 	transform: scale(1.05);
+}
+/* empurra o bloco "A partir de / preço / Assine já" para o rodapé do card,
+   alinhando os botões de todos os cards na mesma linha */
+#ini-planos li > .row:last-child {
+	margin-top:auto;
+	padding-top:14px;
 }
 #ini-planos .pln-li-titulo-g {
 	font-family: "montserratbold", Arial, serif;
