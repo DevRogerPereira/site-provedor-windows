@@ -195,7 +195,7 @@ while ($dados_categorias = mysqli_fetch_object($sql)) {
                         </form>
 <?php } ?>
 <?php if($pagina == "combos-img") {?>
-                        <form id="formulario" method="post" enctype="multipart/form-data" action="<?php echo $urlsite ."/adm/js/cadastro/combos/upload/upload.php" ?>" >
+                        <form id="formulario" method="post" enctype="multipart/form-data" action="<?php echo $urlsite ."/adm/js/cadastro/planos/upload/upload.php" ?>" >
 							<input type="hidden" name="id" id="id" value="<?php echo $ht_url ?>" />
 							<input type="hidden" name="redir_url" id="redir_url" value="<?php echo substr($pagina, 0, -4) . "/" . $ht_url ?>" />
                             <div class="row of_form_box">

@@ -21,6 +21,7 @@ if (file_exists($cache_file) && (time() - filemtime($cache_file)) < $cache_ttl) 
 }
 
 // Cache miss: processar normalmente e capturar o output
+header('X-Cache: MISS');
 ob_start();
 
 // bd
@@ -63,12 +64,15 @@ if(isset($conexao)) {
     mysqli_close($conexao);
 }
 
+// Fecha o HTML DENTRO do buffer, senao as paginas cacheadas ficam sem </body></html>
+echo "</body>\n</html>";
+
 // ============ SALVAR FULL PAGE CACHE ============
+// So salva cache se o banco estava conectado — senao uma pagina quebrada
+// (renderizada durante uma queda do MySQL) ficaria cacheada por 10 minutos
 $html_output = ob_get_clean();
-if (isset($cache_file) && !empty($html_output) && strlen($html_output) > 100) {
+if (isset($cache_file) && !empty($html_output) && strlen($html_output) > 100 && !empty($db_conectado)) {
     @file_put_contents($cache_file, $html_output, LOCK_EX);
 }
 echo $html_output;
 ?>
-</body>
-</html>

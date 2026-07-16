@@ -79,7 +79,7 @@ function abreFecha(sel) {
 $(document).ready(function(){
 		$('#form_login').validate({
 			rules: {
-				usuario: { required: true, minlength: 3, maxlength: 40, remote: 'http://argontec.com.br/adm/js/cadastro/usuarios/valida_cli_usuario.php' },
+				usuario: { required: true, minlength: 3, maxlength: 40, remote: '<?php echo $urlsite ?>/adm/js/cadastro/usuarios/valida_cli_usuario.php' },
 				senha: { required: true, minlength: 2, maxlength: 40 }
 			},
 			messages: {

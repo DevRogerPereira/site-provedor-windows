@@ -31,10 +31,11 @@ satisfy all
 
 	# ADM (antes das INTERNAS para evitar que /adm seja capturado como cidade)
 	RewriteRule ^adm$ /adm/ [R=301,L]
-	RewriteRule ^([a-z]{3})/$ adm/index.php?pagina=entrar&url= [NC,L]
-	RewriteRule ^([a-z]{3})/([a-z0-9_-]+)$ adm/index.php?pagina=$2&url= [NC,L]
-	RewriteRule ^([a-z]{3})/([a-z0-9_-]+)/([a-z0-9_-]+)$ adm/index.php?pagina=$2&url=$3 [NC,L]
-	RewriteRule ^([a-z]{3})/([a-z0-9_-]+)/([a-z0-9_-]+)/([a-z0-9_-]+)/$ adm/index.php?pagina=$2&url=$3&id=$4 [NC,L]
+	RewriteRule ^adm/([a-z0-9_-]+)/adm/([0-9]+)x([0-9]+)/([a-zA-Z0-9_\-\/.]+)$ adm/img.php?w=$2&h=$3&img=img/$4 [NC,L]
+	RewriteRule ^adm/$ adm/index.php?pagina=entrar&url= [NC,L]
+	RewriteRule ^adm/([a-z0-9_-]+)$ adm/index.php?pagina=$1&url= [NC,L]
+	RewriteRule ^adm/([a-z0-9_-]+)/([a-z0-9_-]+)$ adm/index.php?pagina=$1&url=$2 [NC,L]
+	RewriteRule ^adm/([a-z0-9_-]+)/([a-z0-9_-]+)/([a-z0-9_-]+)/$ adm/index.php?pagina=$1&url=$2&id=$3 [NC,L]
 
 	# INTERNAS
 	RewriteRule ^([a-z0-9_-]+)$ index.php?cidade=$1&pagina=inicial [NC]

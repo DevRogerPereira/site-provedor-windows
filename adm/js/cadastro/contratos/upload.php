@@ -10,9 +10,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Conexão ao banco de dados MySQL
 	include("../../../conexao.php");
     
-    $conn = new mysqli($server, $user, $senha, $banco);
-    if ($conn->connect_error) {
-        die('Erro de conexão: ' . $conn->connect_error);
+    // Reutiliza a conexao ja aberta em conexao.php (evita conexao MySQL duplicada)
+    $conn = $conexao;
+    if (empty($db_conectado)) {
+        die('Erro de conexão: ' . mysqli_connect_error());
     }
 
     $id = $_POST['id'];

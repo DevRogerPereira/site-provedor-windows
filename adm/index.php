@@ -22,6 +22,9 @@ $disp_detect = "MV";
 } else {
 $disp_detect = "PC";
 }
+// O painel adm nao tem layout mobile (os blocos MV dos .inc sao vazios), o que
+// deixava a tela em branco no celular. Forca o layout PC em qualquer aparelho.
+$disp_detect = "PC";
 ?>
 <?php if($disp_detect == "PC") { ?>
 <!--[if IE 8]> <html prefix="og: http://ogp.me/ns#" class="ie8" xml:lang="pt-br" lang="pt-br"> <![endif]-->

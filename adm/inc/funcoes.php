@@ -106,15 +106,18 @@ if ($ht_url == "entrar" && isset($_SESSION["usuarioID"]) == true) {
 
 // forms / tb
 function alteraRegistro($tb_alterar,$ht_url) {
-	
-	if($ht_url == true) {
-		
-		include("conexao.php");
-	
-		$db_alterar = mysqli_fetch_array(mysqli_query($conexao,"SELECT * FROM ".$tb_alterar." WHERE url = '".$ht_url."'"));
+
+	// Reutiliza a conexao ja aberta em adm/conexao.php — reincluir o arquivo aqui
+	// abria uma conexao MySQL extra a cada chamada (peso desnecessario no ambiente compartilhado)
+	global $conexao;
+
+	if($ht_url == true && isset($conexao) && $conexao) {
+
+		$query = mysqli_query($conexao,"SELECT * FROM ".$tb_alterar." WHERE url = '".addslashes($ht_url)."'");
+		$db_alterar = $query ? mysqli_fetch_array($query) : null;
 
 		return $db_alterar;
-		
+
 	}
 }
 

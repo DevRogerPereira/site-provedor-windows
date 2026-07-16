@@ -18,13 +18,13 @@ if (strpos($request_uri, '/adm/') !== false && session_status() == PHP_SESSION_N
 date_default_timezone_set('America/Sao_Paulo');
 
 if((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') || (isset($_SERVER['HTTP_X_CLIENT_PROTO']) && $_SERVER['HTTP_X_CLIENT_PROTO'] === 'https')){
-    
+
 	$url_server = "https://";
-	
+
 } else {
-    
+
 	$url_server = "http://";
-	
+
 	// Força o redirecionamento para HTTPS
 	header("HTTP/1.1 301 Moved Permanently");
 	header("Location: https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
@@ -32,6 +32,26 @@ if((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') || (isset($_SERVER['
 }
 
 $urlsite = $url_server . $_SERVER['HTTP_HOST'] . "";
+
+// Toda gravação feita pelo painel adm invalida o Full Page Cache do site na hora.
+// POST cobre todos os formulários (processa.php, deletar.php, upload.php);
+// as rotas GET "-del" cobrem as exclusões de imagem feitas por link.
+// O purge roda no shutdown, ou seja, DEPOIS da gravação no banco concluir.
+// Exige sessão logada: visitante anônimo não pode derrubar o cache (DoS).
+// (Fica depois do redirect HTTPS, então só registra na requisição real que grava.)
+if (strpos($request_uri, '/adm/') !== false) {
+    require_once(__DIR__ . '/inc/limpa_cache.php');
+    $metodo_req = isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : '';
+    $uri_path_adm = parse_url($request_uri, PHP_URL_PATH);
+    if (!is_string($uri_path_adm)) {
+        $uri_path_adm = $request_uri;
+    }
+    $eh_gravacao_adm = ($metodo_req === 'POST' && strpos($uri_path_adm, 'entrar-valida') === false)
+        || preg_match('#-del(/|$)#', $uri_path_adm);
+    if ($eh_gravacao_adm && isset($_SESSION['usuarioID'])) {
+        register_shutdown_function('limparCacheSite');
+    }
+}
 
 header('Content-Type: text/html; charset=utf-8');
 
@@ -44,11 +64,29 @@ $senha = "Emf@844888";
 // Solução: Fazer a resolução de DNS p/ IP forçado no PHP antes de se conectar
 $ip_server = gethostbyname($server);
 
-$conexao = new mysqli($ip_server, $user, $senha, $banco);
+// Timeout curto: uma oscilação do MySQL compartilhado não pode prender o processo
+// FastCGI por 30s — é isso que esgota o pool do IIS e derruba o site em horário de pico
+mysqli_report(MYSQLI_REPORT_OFF);
+$conexao = mysqli_init();
+mysqli_options($conexao, MYSQLI_OPT_CONNECT_TIMEOUT, 5);
+$db_conectado = @mysqli_real_connect($conexao, $ip_server, $user, $senha, $banco);
 
-if (mysqli_connect_errno()) trigger_error(mysqli_connect_error());
+if (!$db_conectado) {
 
-$sql = mysqli_query($conexao, "SELECT * FROM tb_config WHERE id = '1'");
+    // Site público: se o banco caiu mas existe cache da página (mesmo vencido),
+    // serve o cache no lugar de uma página quebrada — o site segue no ar
+    // durante a oscilação. ($cache_file é definido pelo index.php público)
+    if (!empty($cache_file) && is_file($cache_file)) {
+        header('Content-Type: text/html; charset=utf-8');
+        header('X-Cache: STALE');
+        readfile($cache_file);
+        exit;
+    }
+
+    trigger_error(mysqli_connect_error());
+}
+
+$sql = $db_conectado ? mysqli_query($conexao, "SELECT * FROM tb_config WHERE id = '1'") : false;
 
 $tsite = "";
 $tslogan = "";
@@ -80,7 +118,7 @@ $url_4 = "";
 $url_5 = "";
 $url_area_cliente = "";
 
-while ($linha = mysqli_fetch_array($sql)) {
+while ($sql && ($linha = mysqli_fetch_array($sql))) {
 	
 	$tsite = isset($linha['tsite']) ? $linha['tsite'] : "";
 	$tslogan = isset($linha['tslogan']) ? $linha['tslogan'] : "";
