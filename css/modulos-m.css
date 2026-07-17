@@ -2396,7 +2396,8 @@
 	z-index:99999;
 	bottom:25px;
 	right:20px;
-	width:auto;
+	width:52px;      /* menor no mobile (era 70px natural) */
+	height:52px;
 	display:block;
 	padding:0;
 	margin:0;
@@ -2538,13 +2539,13 @@ hr,ul:after{clear:both}body{font:13px/1.5 cairoregular,Arial,"Liberation Sans",F
 /* Melhor Plano - selos flutuantes (propaganda - mobile) */
 .melhorplano-selos-flutuantes{
 	position:fixed;
-	right:20px;
-	bottom:120px;
+	right:12px;
+	bottom:86px;           /* logo acima do botao do WhatsApp, sem cobrir conteudo */
 	z-index:99998;
 	display:flex;
-	flex-direction:column;
-	gap:10px;
-	align-items:flex-end;
+	flex-direction:row;    /* mobile: os dois selos lado a lado */
+	gap:8px;
+	align-items:center;
 	pointer-events:none; /* não intercepta cliques fora do banner */
 }
 .melhorplano-selos-flutuantes a{
@@ -2553,24 +2554,24 @@ hr,ul:after{clear:both}body{font:13px/1.5 cairoregular,Arial,"Liberation Sans",F
 }
 .melhorplano-selos-flutuantes img{
 	display:block;
-	width:150px;
-	height:87.02px;
+	width:80px;            /* menor: ocupa bem menos espaco na tela do celular */
+	height:46.4px;         /* mantem a proporcao 150:87.02 */
 	object-fit:contain;
-	transition: width 0.2s ease, height 0.2s ease;
-	max-width:calc(100vw - 20px);
-	max-height:203.05px;
+	max-width:none;
+	max-height:none;
 }
-.melhorplano-selos-flutuantes a:hover img{
-	width:350px;
-	height:203.05px;
+.melhorplano-selos-flutuantes a:hover img,
+.melhorplano-selos-flutuantes a:active img{
+	width:80px;            /* nao cresce no toque (evita cobrir a tela no mobile) */
+	height:46.4px;
 }
 .melhorplano-selo-2026 img{
-	width:150px;
-	height:87.02px;
+	width:80px;
+	height:46.4px;
 }
 .melhorplano-selo-2025 img{
-	width:150px;
-	height:87.02px;
+	width:80px;
+	height:46.4px;
 }
 @font-face {
     font-family: 'montserratextrabold';
