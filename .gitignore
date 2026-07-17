@@ -26,3 +26,8 @@ adm/img/
 # Temp files
 *.tmp
 *.bak
+
+# Cache de runtime (gerado no servidor)
+cache/
+images/cache/
+*.lock

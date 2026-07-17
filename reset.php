@@ -1,4 +1,12 @@
 <?php
+// Limpa caches apos deploy. Protegido por token para um visitante nao ficar
+// derrubando o cache (o que forcaria todos a renderizar e estressaria o banco).
+$TOKEN = "Rst7Emf844888xQ2";
+if (!isset($_GET['token']) || $_GET['token'] !== $TOKEN) {
+    header("HTTP/1.1 404 Not Found");
+    exit;
+}
+
 if (function_exists('opcache_reset')) {
     opcache_reset();
     echo "OPcache resetado.\n";

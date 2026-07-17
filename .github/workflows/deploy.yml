@@ -68,12 +68,15 @@ jobs:
         HOST_NO_PROTO="${HOST_NO_PROTO#https://}"
         HOST_NO_PROTO="${HOST_NO_PROTO%/}"
 
+        # Token do reset.php (deve bater com $TOKEN dentro de reset.php)
+        RESET_TOKEN="Rst7Emf844888xQ2"
+
         # Monta tentativas comuns considerando que o FTP deposita em "web/" e pode variar na URL pública.
         urls=(
-          "https://${HOST_NO_PROTO}/reset.php"
-          "http://${HOST_NO_PROTO}/reset.php"
-          "https://${HOST_NO_PROTO}/web/reset.php"
-          "http://${HOST_NO_PROTO}/web/reset.php"
+          "https://${HOST_NO_PROTO}/reset.php?token=${RESET_TOKEN}"
+          "http://${HOST_NO_PROTO}/reset.php?token=${RESET_TOKEN}"
+          "https://${HOST_NO_PROTO}/web/reset.php?token=${RESET_TOKEN}"
+          "http://${HOST_NO_PROTO}/web/reset.php?token=${RESET_TOKEN}"
         )
 
         echo "Limpando cache via reset.php..."

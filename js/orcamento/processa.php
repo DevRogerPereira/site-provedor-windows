@@ -133,9 +133,23 @@
 
 			$situacao_data = date("Y-m-d");
 
-			$query = mysqli_query($conexao,"INSERT INTO crm VALUES (NULL, 'N', '".$url_ft."', '".getPost('cidade_id')."', '".getPost('plano_id')."', '".getPost('nome_amigo')."', '".getPost('localidade')."', '".getPost('cidade_id')."', '".getPost('input_nome')."', '".getPost('input_telefone')."', '".getPost('input_email')."')");
+			// Escapa os valores do formulario (getPost/filter nao escapam nada)
+			$e_url_ft   = addslashes($url_ft);
+			$e_cidade   = addslashes((string) getPost('cidade_id'));
+			$e_plano    = addslashes((string) getPost('plano_id'));
+			$e_amigo    = addslashes((string) getPost('nome_amigo'));
+			$e_local    = addslashes((string) getPost('localidade'));
+			$e_nome     = addslashes((string) getPost('input_nome'));
+			$e_tel      = addslashes((string) getPost('input_telefone'));
+			$e_email    = addslashes((string) getPost('input_email'));
+
+			$query = mysqli_query($conexao,"INSERT INTO crm VALUES (NULL, 'N', '".$e_url_ft."', '".$e_cidade."', '".$e_plano."', '".$e_amigo."', '".$e_local."', '".$e_cidade."', '".$e_nome."', '".$e_tel."', '".$e_email."')");
 
 			$query_id = mysqli_insert_id($conexao);
+
+			// Libera a conexao ANTES do envio SMTP: o e-mail pode levar segundos e nao
+			// pode segurar 1 das 30 conexoes do banco compartilhado enquanto envia.
+			if (isset($conexao) && $conexao) { @mysqli_close($conexao); $conexao = null; }
 
 			require 'PHPMailerAutoload.php';
 			require 'class.phpmailer.php';
@@ -143,7 +157,11 @@
 			$mailer = new PHPMailer;
 
 			$mailer->isSMTP();
-			
+
+			// Teto de tempo do SMTP: nunca deixa o worker FastCGI preso perto dos 90s.
+			$mailer->Timeout = 8;
+			$mailer->SMTPKeepAlive = false;
+
 			$mailer->SMTPOptions = array(
 				'ssl' => array(
 					'verify_peer' => false,

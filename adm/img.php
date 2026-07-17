@@ -7,15 +7,38 @@
  * e.g. convert a large portrait/landscape image to a small square thumbnail
  */
 
-define('DESIRED_IMAGE_WIDTH', $_GET['w']);
-define('DESIRED_IMAGE_HEIGHT', $_GET['h']);
+define('DESIRED_IMAGE_WIDTH', (int) $_GET['w']);
+define('DESIRED_IMAGE_HEIGHT', (int) $_GET['h']);
 
 $source_path = $_GET['img'];
-/*
- * Add file validation code here
- */
+
+// Só processa imagens locais (evita ler caminhos arbitrarios / remotos)
+if (!is_string($source_path) || preg_match('#^[a-z]+://#i', $source_path) || strpos($source_path, "\0") !== false) {
+    header("HTTP/1.1 400 Bad Request");
+    exit;
+}
+
+// ==== CACHE EM DISCO: serve direto se ja foi gerada, sem reprocessar GD ====
+$cache_dir = __DIR__ . '/img/cache/';
+if (!is_dir($cache_dir)) { @mkdir($cache_dir, 0777, true); }
+$cache_path = $cache_dir . md5($source_path) . '_' . DESIRED_IMAGE_WIDTH . 'x' . DESIRED_IMAGE_HEIGHT . '.jpg';
+if (is_file($cache_path)) {
+    header('Content-Type: image/jpeg');
+    header('Cache-Control: public, max-age=31536000');
+    readfile($cache_path);
+    exit;
+}
+
+if (!is_file($source_path)) {
+    header("HTTP/1.1 404 Not Found");
+    exit;
+}
 
 list($source_width, $source_height, $source_type) = getimagesize($source_path);
+if (!$source_width || !$source_height) {
+    header("HTTP/1.1 404 Not Found");
+    exit;
+}
 
 switch ($source_type) {
     case IMAGETYPE_GIF:
@@ -80,10 +103,16 @@ imagecopy(
  * Alternatively, you can save the image in file-system or database
  */
 
+// Salva no cache de disco e serve (proximas requisicoes nao reprocessam GD)
+imagejpeg($desired_gdim, $cache_path, 84);
 header('Content-type: image/jpeg');
-imagejpeg($desired_gdim, null, 84);
+header('Cache-Control: public, max-age=31536000');
+readfile($cache_path);
 
 /*
  * Add clean-up code here
  */
+if (isset($source_gdim) && $source_gdim) { @imagedestroy($source_gdim); }
+if (isset($temp_gdim) && $temp_gdim) { @imagedestroy($temp_gdim); }
+if (isset($desired_gdim) && $desired_gdim) { @imagedestroy($desired_gdim); }
 ?>

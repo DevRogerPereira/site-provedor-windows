@@ -1,4 +1,5 @@
 ﻿<?php
+	require_once("../../../inc/guard_ajax.php"); // auth: nao abre banco sem login
 
 	require_once("../../../conexao.php");
 	require_once("../../../inc/funcoes.php");

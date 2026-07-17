@@ -7,13 +7,22 @@
  * e.g. convert a large portrait/landscape image to a small square thumbnail
  */
 
-define('DESIRED_IMAGE_WIDTH', $_GET['w']);
-define('DESIRED_IMAGE_HEIGHT', $_GET['h']);
+// Dimensoes: cast para inteiro e TETO de 2000px. Sem isso, img.php?w=99999&h=99999
+// alocaria centenas de MB e mataria o worker (estoura o memory_limit de 128M).
+define('DESIRED_IMAGE_WIDTH',  max(1, min((int) (isset($_GET['w']) ? $_GET['w'] : 0), 2000)));
+define('DESIRED_IMAGE_HEIGHT', max(1, min((int) (isset($_GET['h']) ? $_GET['h'] : 0), 2000)));
 
-$source_path = $_GET['img'];
-/*
- * Add file validation code here
- */
+$source_path = isset($_GET['img']) ? $_GET['img'] : '';
+
+// Confina a origem a arquivos locais dentro de images/ (barra path traversal / URLs remotas)
+if (!is_string($source_path) || $source_path === ''
+    || strpos($source_path, "\0") !== false
+    || strpos($source_path, '..') !== false
+    || preg_match('#^[a-z]+://#i', $source_path)
+    || strpos($source_path, ':') !== false) {
+    header("HTTP/1.1 400 Bad Request");
+    exit;
+}
 
 // ==== INÍCIO CACHE SYSTEM ====
 $cache_dir = 'images/cache/';
@@ -38,7 +47,16 @@ if(!file_exists($source_path)) {
 	die("Image not found");
 }
 
-list($source_width, $source_height, $source_type) = getimagesize($source_path);
+$info = @getimagesize($source_path);
+if ($info === false) {
+    header("HTTP/1.1 415 Unsupported Media Type");
+    exit;
+}
+list($source_width, $source_height, $source_type) = $info;
+if (!$source_width || !$source_height) {
+    header("HTTP/1.1 415 Unsupported Media Type");
+    exit;
+}
 
 switch ($source_type) {
     case IMAGETYPE_GIF:
@@ -50,6 +68,14 @@ switch ($source_type) {
     case IMAGETYPE_PNG:
         $source_gdim = imagecreatefrompng($source_path);
         break;
+    default:
+        // Formato nao suportado (WebP/BMP/etc): NAO grava cache preto, so recusa.
+        header("HTTP/1.1 415 Unsupported Media Type");
+        exit;
+}
+if (empty($source_gdim)) {
+    header("HTTP/1.1 415 Unsupported Media Type");
+    exit;
 }
 
 $source_aspect_ratio = $source_width / $source_height;

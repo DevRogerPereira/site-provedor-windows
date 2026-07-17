@@ -30,7 +30,7 @@ while ($dados_planos = mysqli_fetch_object($sql)) {
 
 $key_valor++;
 
-$dados_categoria = mysqli_fetch_object(mysqli_query($conexao,"SELECT * FROM planos_categorias WHERE del = 'N' && id = '".$dados_planos->cat_id."'"));
+$dados_categoria = getCategoria($conexao, $dados_planos->cat_id);
 
 $url_list = $urlsite . "/" . $dados_cidade['url'] . "/assine/". $pagina ."/" . $dados_planos->url . "";
 
@@ -220,7 +220,7 @@ $sql_2 = mysqli_query($conexao,"SELECT * FROM planos_canais_active WHERE plano_i
 
 while ($dados_planos_canais = mysqli_fetch_object($sql_2)) {
 
-$dados_canais = mysqli_fetch_object(mysqli_query($conexao,"SELECT * FROM planos_canais WHERE del = 'N' && id = '".$dados_planos_canais->canal_id."'"));
+$dados_canais = getCanal($conexao, $dados_planos_canais->canal_id);
 ?>
                                     <li>
                                         <a href="javascript:;" class="nav-modal-canais-li" onClick="abreFecha('.nav-modal-<?php echo $dados_planos->id ?>')"><img src="<?php echo $urlsite . "/images/" . $dados_canais->foto ?>"></a>
@@ -274,7 +274,7 @@ while ($dados_planos = mysqli_fetch_object($sql)) {
 
 $key_valor++;
 
-$dados_categoria = mysqli_fetch_object(mysqli_query($conexao,"SELECT * FROM planos_categorias WHERE del = 'N' && id = '".$dados_planos->cat_id."'"));
+$dados_categoria = getCategoria($conexao, $dados_planos->cat_id);
 
 $url_list = $urlsite . "/" . $dados_cidade['url'] . "/assine/". $pagina ."/" . $dados_planos->url . "";
 
@@ -464,7 +464,7 @@ $sql_2 = mysqli_query($conexao,"SELECT * FROM planos_canais_active WHERE plano_i
 
 while ($dados_planos_canais = mysqli_fetch_object($sql_2)) {
 
-$dados_canais = mysqli_fetch_object(mysqli_query($conexao,"SELECT * FROM planos_canais WHERE del = 'N' && id = '".$dados_planos_canais->canal_id."'"));
+$dados_canais = getCanal($conexao, $dados_planos_canais->canal_id);
 ?>
                                     <li>
                                         <a href="javascript:;" class="nav-flt-lcld-fechar" class="nav-modal-canais-li" onClick="abreFecha('.nav-modal-<?php echo $dados_planos->id ?>')"><img src="<?php echo $urlsite . "/images/" . $dados_canais->foto ?>"></a>

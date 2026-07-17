@@ -1,4 +1,14 @@
 <?php
+// Valvula de seguranca manual: mata conexoes 'Sleep' presas que seguram slots
+// contra o limite de 30 conexoes do MySQL compartilhado da Locaweb.
+// Protegido por token para NAO ser acionavel por qualquer visitante.
+// Uso: https://SEUDOMINIO/kill_sleep.php?token=Lk9x2Qw7Emf844888
+$TOKEN = "Lk9x2Qw7Emf844888";
+if (!isset($_GET['token']) || $_GET['token'] !== $TOKEN) {
+    header("HTTP/1.1 404 Not Found");
+    exit;
+}
+
 include("adm/conexao.php");
 
 $result = mysqli_query($conexao, "SHOW PROCESSLIST");

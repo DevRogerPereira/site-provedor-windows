@@ -1,4 +1,5 @@
 <?php
+	require_once("../../../inc/guard_ajax.php"); // auth: nao abre banco sem login
 
 	include("../../../conexao.php");
 
@@ -7,12 +8,12 @@
 	
 	$valida = mysqli_num_rows(mysqli_query($conexao, "SELECT * FROM usuarios_dados WHERE usuario = '$campo'"));
 
-	//Aqui você verifica em seu banco de dados, se o login já foi cadastrado.
+	//Aqui vocï¿½ verifica em seu banco de dados, se o login jï¿½ foi cadastrado.
 	
 	if( $valida >= 1 )
-		//Se o login já existir você exibe false
+		//Se o login jï¿½ existir vocï¿½ exibe false
 		echo 'false';
 	else
-		//Se o login não existir você exibe true
+		//Se o login nï¿½o existir vocï¿½ exibe true
 		echo 'true';
 	exit();

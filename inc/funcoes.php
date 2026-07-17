@@ -11,10 +11,6 @@ $page = isset($_GET['page']) ? $_GET['page'] : "";
 
 
 
-$sql = "SELECT COUNT(*) AS total FROM planos_localidades WHERE del = 'N'";
-$res = mysqli_query($conexao, $sql);
-$total = (int) mysqli_fetch_assoc($res)['total'];
-
 if (empty($pagina) || $pagina == "cidade") {
     $q = mysqli_query($conexao, "SELECT url FROM planos_localidades WHERE del='N' LIMIT 1");
     if ($q && mysqli_num_rows($q) > 0) {
@@ -68,6 +64,32 @@ function PegaUrl(){
  return $url_full;
 }
 
+// Retorna a categoria de plano por id, com cache em memoria no request.
+// Antes, cada linha do laco de planos fazia 1 SELECT em planos_categorias
+// (N+1): dezenas de queries identicas por pagina. Agora e 1 query por
+// categoria distinta (no maximo ~7), reduzindo drasticamente a carga no banco.
+function getCategoria($conexao, $id) {
+    static $cache_cat = array();
+    $id = (string) $id;
+    if (!array_key_exists($id, $cache_cat)) {
+        $res = mysqli_query($conexao, "SELECT * FROM planos_categorias WHERE del = 'N' && id = '" . addslashes($id) . "'");
+        $cache_cat[$id] = ($res && mysqli_num_rows($res) > 0) ? mysqli_fetch_object($res) : null;
+    }
+    return $cache_cat[$id];
+}
+
+// Idem para canais de TV: o mesmo canal aparece em varios planos, entao cache
+// em memoria evita repetir SELECT em planos_canais dentro do laco (N+1).
+function getCanal($conexao, $id) {
+    static $cache_canal = array();
+    $id = (string) $id;
+    if (!array_key_exists($id, $cache_canal)) {
+        $res = mysqli_query($conexao, "SELECT * FROM planos_canais WHERE del = 'N' && id = '" . addslashes($id) . "'");
+        $cache_canal[$id] = ($res && mysqli_num_rows($res) > 0) ? mysqli_fetch_object($res) : null;
+    }
+    return $cache_canal[$id];
+}
+
 
 // seo
 $seo_data = date("Y-m-d");
@@ -95,10 +117,15 @@ function numeroMascara($string)
 		$num = "(%s%s) %s%s%s%s%s %s%s%s%s";
 		
 	} elseif($number_substr != "0800" && $number_strlen == 10) {
-		
+
 		$num = "(%s%s) %s%s%s%s %s%s%s%s";
-		
+
 	}
+
+    // Telefone fora dos formatos esperados: devolve como esta (evita usar $num indefinido)
+    if (!isset($num)) {
+        return $string;
+    }
 
     return  vsprintf($num, str_split($string));
 	//echo numeroMascara('73801331903');
@@ -106,21 +133,8 @@ function numeroMascara($string)
 
 // inicio background localidade
 
-$dados_tb_config_query = mysqli_query($conexao,"SELECT * FROM tb_config WHERE id = '1'");
-$dados_tb_config = $dados_tb_config_query ? mysqli_fetch_object($dados_tb_config_query) : null;
-
-if($dados_tb_config && isset($dados_tb_config->foto01) && file_exists("images/". $dados_tb_config->foto01) && $dados_tb_config->foto01 == true) {
-
-	$dados_tb_config_bg = "background: url('".$urlsite."/images/".$dados_tb_config->foto01."') #131372 no-repeat center top;
-	background-size:cover;
-";
-
-} else {
-
-	$dados_tb_config_bg = "background: #131372;
-";
-
-}
+// (removido) 2a consulta a tb_config: alimentava $dados_tb_config_bg, variavel
+// que nao e usada em nenhum template — era 1 query desperdicada por request.
 
 // fim background localidade
 	
@@ -151,21 +165,23 @@ if ($cidade == true) {
         ];
     }
 
-	$dados_rows_plano_1 = mysqli_fetch_row(mysqli_query($conexao,"SELECT COUNT(id) FROM planos WHERE del = 'N' && locl_id = '".$dados_cidade['id']."' && cat_id = '1'"))[0];
-	$dados_rows_plano_2 = mysqli_fetch_row(mysqli_query($conexao,"SELECT COUNT(id) FROM planos WHERE del = 'N' && locl_id = '".$dados_cidade['id']."' && cat_id = '2'"))[0];
-	$dados_rows_plano_3 = mysqli_fetch_row(mysqli_query($conexao,"SELECT COUNT(id) FROM planos WHERE del = 'N' && locl_id = '".$dados_cidade['id']."' && cat_id = '3'"))[0];
-	$dados_rows_plano_4 = mysqli_fetch_row(mysqli_query($conexao,"SELECT COUNT(id) FROM planos WHERE del = 'N' && locl_id = '".$dados_cidade['id']."' && cat_id = '4'"))[0];
-	$dados_rows_plano_5 = mysqli_fetch_row(mysqli_query($conexao,"SELECT COUNT(id) FROM planos WHERE del = 'N' && locl_id = '".$dados_cidade['id']."' && cat_id = '5'"))[0];
-	$dados_rows_plano_6 = mysqli_fetch_row(mysqli_query($conexao,"SELECT COUNT(id) FROM planos WHERE del = 'N' && locl_id = '".$dados_cidade['id']."' && cat_id = '6'"))[0];
-	$dados_rows_plano_7 = mysqli_fetch_row(mysqli_query($conexao,"SELECT COUNT(id) FROM planos WHERE del = 'N' && locl_id = '".$dados_cidade['id']."' && cat_id = '7'"))[0];
+	// 1 query agrupada no lugar de 7 COUNT separados (menos ida-e-volta ao banco)
+	$dados_rows_plano_1 = 0; $dados_rows_plano_2 = 0; $dados_rows_plano_3 = 0;
+	$dados_rows_plano_4 = 0; $dados_rows_plano_5 = 0; $dados_rows_plano_6 = 0; $dados_rows_plano_7 = 0;
+	$q_cats = mysqli_query($conexao,"SELECT cat_id, COUNT(id) AS total FROM planos WHERE del = 'N' && locl_id = '".$dados_cidade['id']."' GROUP BY cat_id");
+	if ($q_cats) {
+		while ($r_cat = mysqli_fetch_assoc($q_cats)) {
+			$var_cat = 'dados_rows_plano_' . (int) $r_cat['cat_id'];
+			if (isset($$var_cat)) { $$var_cat = (int) $r_cat['total']; }
+		}
+	}
 	$dados_rows_contratos = mysqli_fetch_row(mysqli_query($conexao,"SELECT COUNT(id) FROM contratos WHERE del = 'N' && locl_id = '".$dados_cidade['id']."'"))[0];
 	$dados_rows_blog = mysqli_fetch_row(mysqli_query($conexao,"SELECT COUNT(id) FROM blog WHERE del = 'N'"))[0];
 	$dados_rows_depoimentos = mysqli_fetch_row(mysqli_query($conexao,"SELECT COUNT(id) FROM depoimentos WHERE del = 'N'"))[0];
 	$dados_rows_duvidas = mysqli_fetch_row(mysqli_query($conexao,"SELECT COUNT(id) FROM duvidas WHERE del = 'N'"))[0];
 	$dados_rows_slides = mysqli_fetch_row(mysqli_query($conexao,"SELECT COUNT(id) FROM slides WHERE del = 'N' && locl_id = '".$dados_cidade['id']."'"))[0];
 
-	$tb_planos_1 = mysqli_fetch_object(mysqli_query($conexao,"SELECT * FROM planos WHERE del = 'N' && locl_id = '".$dados_cidade['id']."' && cat_id = '1' && tipo_id = 'S' ORDER BY valor ASC"));
-	$tb_planos_2 = mysqli_fetch_object(mysqli_query($conexao,"SELECT * FROM planos WHERE del = 'N' && locl_id = '".$dados_cidade['id']."' && cat_id = '2' && tipo_id = 'S' ORDER BY valor ASC"));
+	// (removido) tb_planos_1/tb_planos_2: SELECT * cujas variaveis nunca eram lidas — 2 queries desperdicadas.
 
 	if ($social_facebook == true) {
 		
@@ -569,7 +585,7 @@ switch($pagina)
 				
 				if ($dados_plano['download'] == true) {
 					
-					$dados_categoria = mysqli_fetch_array(mysqli_query($conexao,"SELECT * FROM planos_categorias WHERE del = 'N' && id = '".$dados_plano['cat_id']."'"));
+					$dados_categoria = (array) getCategoria($conexao, $dados_plano['cat_id']);
 					$dados_assine_download = $dados_plano['download'];
 					$dados_assine_valor = number_format($dados_plano['valor'], 2, ',', '.');
 					$dados_assine_situacao = "S";
@@ -579,7 +595,7 @@ switch($pagina)
 					
 				} elseif ($dados_plano['titulo'] == true) {
 					
-					$dados_categoria = mysqli_fetch_array(mysqli_query($conexao,"SELECT * FROM planos_categorias WHERE del = 'N' && id = '".$dados_plano['cat_id']."'"));
+					$dados_categoria = (array) getCategoria($conexao, $dados_plano['cat_id']);
 					$dados_assine_download = $dados_plano['download'];
 					$dados_assine_valor = number_format($dados_plano['valor'], 2, ',', '.');
 					$dados_assine_situacao = "S";

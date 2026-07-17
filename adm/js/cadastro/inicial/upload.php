@@ -1,4 +1,5 @@
 ﻿<?php
+	require_once("../../../inc/guard_ajax.php"); // auth: nao abre banco sem login
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	
     // Limite de arquivos

@@ -58,27 +58,11 @@
                         <div class="pagination">
 <?php
                     
-	$sql_slides = mysqli_query($conexao,"SELECT * FROM slides WHERE del = 'N' ORDER BY RAND() LIMIT 3");
-	$sql_slides_tr = mysqli_num_rows($sql_slides);
-
-	$key_valor = 0;
-
-	while ($dados_slides = mysqli_fetch_object($sql_slides)) {
-                    
-	$key_valor++;
-                    
-	if ($key_valor == 1) { 
-	
-	   $dados_key_valor = " is-active";
-	   
-	} else {
-		
-	   $dados_key_valor = "";
-	   
-	}
-
+	// Bolinhas de paginacao: reaproveita a contagem ja conhecida (sem refazer a query ORDER BY RAND())
+	for ($key_valor = 1; $key_valor <= $sql_slides_tr; $key_valor++) {
+	$dados_key_valor = ($key_valor == 1) ? " is-active" : "";
 ?>
-							<div class="item<?php echo $dados_key_valor ?>"> 
+							<div class="item<?php echo $dados_key_valor ?>">
                             	<span class="icon"><?php echo $key_valor ?></span>
                             </div>
 <?php } ?>
@@ -164,27 +148,11 @@
                         <div class="pagination">
 <?php
                     
-	$sql_slides = mysqli_query($conexao,"SELECT * FROM slides WHERE del = 'N' ".$dados_cidade_flt." ORDER BY RAND() LIMIT 3");
-	$sql_slides_tr = mysqli_num_rows($sql_slides);
-
-	$key_valor = 0;
-
-	while ($dados_slides = mysqli_fetch_object($sql_slides)) {
-                    
-	$key_valor++;
-                    
-	if ($key_valor == 1) { 
-	
-	   $dados_key_valor = " is-active";
-	   
-	} else {
-		
-	   $dados_key_valor = "";
-	   
-	}
-
+	// Bolinhas de paginacao: reaproveita a contagem ja conhecida (sem refazer a query ORDER BY RAND())
+	for ($key_valor = 1; $key_valor <= $sql_slides_tr; $key_valor++) {
+	$dados_key_valor = ($key_valor == 1) ? " is-active" : "";
 ?>
-							<div class="item<?php echo $dados_key_valor ?>"> 
+							<div class="item<?php echo $dados_key_valor ?>">
                             	<span class="icon"><?php echo $key_valor ?></span>
                             </div>
 <?php } ?>
