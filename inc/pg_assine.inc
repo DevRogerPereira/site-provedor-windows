@@ -50,6 +50,9 @@
                             </div>
                             <div class="row">
                                 <ul>
+                                    <li>
+                                        <a href="https://chat-linknet.vercel.app/chat" data-lk-chat class="cnt-li-chat">Chat online<span>Falar agora</span></a>
+                                    </li>
 <?php if ($dados_cidade_telefone_2 == true) { ?>
                                     <li>
                                         <a href="<?php echo "http://api.whatsapp.com/send?1=pt_BR&phone=".$dados_cidade_telefone_2_whatsapp."&text=Quero falar com a " . $tsite . "\"" ?>" target="_blank" class="cnt-li-1">WhatsApp <?php echo $tsite ?><span>Enviar mensagem</span></a>
@@ -142,6 +145,9 @@
                             </div>
                             <div class="row">
                                 <ul>
+                                    <li>
+                                        <a href="https://chat-linknet.vercel.app/chat" data-lk-chat class="cnt-li-chat">Chat online<span>Falar agora</span></a>
+                                    </li>
 <?php if ($dados_cidade_telefone_2 == true) { ?>
                                     <li>
                                         <a href="<?php echo "http://api.whatsapp.com/send?1=pt_BR&phone=".$dados_cidade_telefone_2_whatsapp."&text=Quero falar com a " . $tsite . "\"" ?>" target="_blank" class="cnt-li-1">WhatsApp <?php echo $tsite ?><span>Enviar mensagem</span></a>
