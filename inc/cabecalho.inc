@@ -121,6 +121,7 @@ if ($dados_contratos->titulo == true) {
                                 <li><a href="<?php echo $url_area_cliente ?>" target="_blank">Área do cliente</a></li>
                                 <li><a href="<?php echo $url_area_cliente ?>" target="_blank">2ª via de boleto</a></li>
 <?php } ?>
+                                <li><a href="https://chat-linknet.vercel.app/chat" data-lk-chat>Chat online</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -216,6 +217,7 @@ if ($dados_contratos->titulo == true) {
                         <a href="<?php echo $url_area_cliente ?>" target="_blank" class="cbl-nav-li-boleto">2ª via de boleto</a>
                         <a href="<?php echo $url_area_cliente ?>" target="_blank" class="cbl-nav-li-central">Central do assinante</a>
 <?php } ?>
+                        <a href="https://chat-linknet.vercel.app/chat" data-lk-chat class="cbl-nav-li-chat">Chat online</a>
 <?php } ?>
                     </div>
                     <div class="row cbl-ul">
