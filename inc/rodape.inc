@@ -360,3 +360,5 @@ function abreFecha(sel) {
 	};
 </script>
 <?php if(isset($pixel_body)) { echo $pixel_body; } ?>
+<!-- Chat LinkNet: widget flutuante (servido pela Vercel; sem deploy do site para atualizar) -->
+<script src="https://chat-linknet.vercel.app/widget.js" async></script>
