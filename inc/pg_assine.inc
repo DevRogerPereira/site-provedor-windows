@@ -68,7 +68,20 @@
                                         <a href="<?php echo $url_area_cliente ?>" target="_blank" class="cnt-li-3">2ª via de boleto<span>Emitir agora</span></a>
                                     </li>
 <?php } ?>
+<?php if ($app_lj_ios_no_ar == true) { ?>
+                                    <li>
+                                        <a href="<?php echo $app_lj_ios ?>" target="_blank" rel="noopener" class="cnt-li-app-ios">Aplicativo para iPhone<span>Baixar na App Store</span></a>
+                                    </li>
+<?php } ?>
+<?php if ($app_lj_android_no_ar == true) { ?>
+                                    <li>
+                                        <a href="<?php echo $app_lj_android ?>" target="_blank" rel="noopener" class="cnt-li-app-android">Aplicativo para Android<span>Baixar no Google Play</span></a>
+                                    </li>
+<?php } ?>
                                 </ul>
+<?php if ($app_lj_tem == true) { ?>
+<?php $app_qr_tam = "p"; include("inc/app_lojas_qr.inc"); ?>
+<?php } ?>
 							</div>
                         </div>
 <?php } ?>    
@@ -163,7 +176,20 @@
                                         <a href="<?php echo $url_area_cliente ?>" target="_blank" class="cnt-li-3">2ª via de boleto<span>Emitir agora</span></a>
                                     </li>
 <?php } ?>
+<?php if ($app_lj_ios_no_ar == true) { ?>
+                                    <li>
+                                        <a href="<?php echo $app_lj_ios ?>" target="_blank" rel="noopener" class="cnt-li-app-ios">Aplicativo para iPhone<span>Baixar na App Store</span></a>
+                                    </li>
+<?php } ?>
+<?php if ($app_lj_android_no_ar == true) { ?>
+                                    <li>
+                                        <a href="<?php echo $app_lj_android ?>" target="_blank" rel="noopener" class="cnt-li-app-android">Aplicativo para Android<span>Baixar no Google Play</span></a>
+                                    </li>
+<?php } ?>
                                 </ul>
+<?php if ($app_lj_tem == true) { ?>
+<?php $app_qr_tam = "p"; include("inc/app_lojas_qr.inc"); ?>
+<?php } ?>
 							</div>
                         </div>
 <?php } ?>    

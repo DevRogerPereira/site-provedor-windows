@@ -2797,3 +2797,555 @@ hr,ul:after{clear:both}body{font:13px/1.5 cairoregular,Arial,"Liberation Sans",F
 #ini-cabecalho .cbl-nav-li-chat:hover {
 	color:#0233a9;
 }
+
+/* =========================================================================
+   O APLICATIVO NAS LOJAS (banner do carrossel, cabecalho, janela do QR,
+   Atendimento express, Canais de atendimento e rodape).
+   Entrou em 16/09/2026, quando a App Store aprovou a versao 1.0.
+   Paleta da casa: azul #0233a9, azul escuro #002888, ciano #0bb1f0,
+   amarelo #ffff00. Fontes montserratbold / montserratregular.
+   ========================================================================= */
+
+/* ---- os botoes das lojas ------------------------------------------------ */
+.app-lojas {
+	display:block;
+	padding:0;
+	margin:0;
+	font-size:0;
+}
+.app-loja {
+	display:inline-block;
+	vertical-align:top;
+	text-decoration:none;
+	padding:9px 16px 9px 44px;
+	margin:0 10px 10px 0;
+	position:relative;
+	border-radius:10px;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;
+	transition:transform .18s ease, box-shadow .18s ease, background-color .18s ease;
+}
+.app-loja-g {
+	padding:12px 22px 12px 52px;
+}
+.app-lojas-g .app-loja {
+	padding:12px 22px 12px 54px;
+	margin:0 12px 12px 0;
+}
+.app-loja-icone {
+	position:absolute;
+	left:14px;
+	top:50%;
+	width:24px;
+	height:24px;
+	margin-top:-12px;
+	display:block;
+}
+.app-lojas-g .app-loja-icone {
+	left:18px;
+	width:28px;
+	height:28px;
+	margin-top:-14px;
+}
+.app-loja-icone svg {
+	width:100%;
+	height:100%;
+	display:block;
+	fill:currentColor;
+}
+.app-loja-txt {
+	display:block;
+	text-align:left;
+}
+.app-loja-txt-1 {
+	font-family:"montserratregular", Arial, serif;
+	font-size:11px;
+	line-height:1.1em;
+	display:block;
+	opacity:.85;
+	text-transform:none;
+}
+.app-loja-txt-2 {
+	font-family:"montserratbold", Arial, serif;
+	font-size:16px;
+	line-height:1.15em;
+	display:block;
+	text-transform:none;
+}
+.app-lojas-g .app-loja-txt-1 { font-size:12px; }
+.app-lojas-g .app-loja-txt-2 { font-size:19px; }
+
+/* sobre fundo escuro (banner e secao do app): botao branco */
+.app-lojas-claro .app-loja {
+	background:#fff;
+	color:#002888;
+	box-shadow:0 6px 18px -6px rgba(0,0,0,.45);
+}
+.app-lojas-claro .app-loja:hover {
+	transform:translateY(-2px);
+	box-shadow:0 12px 26px -8px rgba(0,0,0,.55);
+}
+/* sobre fundo claro (Atendimento express, janela): botao azul da marca */
+.app-lojas-escuro .app-loja {
+	background:#0233a9;
+	color:#fff;
+	box-shadow:0 6px 18px -8px rgba(2,51,169,.65);
+}
+.app-lojas-escuro .app-loja:hover {
+	background:#002888;
+	transform:translateY(-2px);
+	box-shadow:0 12px 26px -10px rgba(2,51,169,.75);
+}
+/* a loja que ainda nao publicou: sem link, sem promessa de clique */
+.app-loja-breve {
+	opacity:.55;
+	cursor:default;
+	box-shadow:none !important;
+}
+.app-loja-breve:hover {
+	transform:none !important;
+}
+
+/* ---- o cartao do QR code ------------------------------------------------ */
+.app-qr {
+	display:block;
+	padding:0;
+	margin:0;
+	font-size:0;
+}
+.app-qr-item {
+	display:inline-block;
+	vertical-align:top;
+	text-align:center;
+	background:#fff;
+	padding:10px 10px 6px 10px;
+	margin:0 10px 8px 0;
+	border-radius:12px;
+	-moz-border-radius:12px;
+	-webkit-border-radius:12px;
+	box-shadow:0 8px 22px -10px rgba(0,0,0,.45);
+}
+.app-qr-img {
+	display:block;
+	width:96px;
+	height:96px;
+	margin:0 auto;
+}
+.app-qr-g .app-qr-img {
+	width:118px;
+	height:118px;
+}
+.app-qr-loja {
+	font-family:"montserratbold", Arial, serif;
+	color:#002888;
+	font-size:11px;
+	line-height:1.0em;
+	display:block;
+	padding:6px 0 0 0;
+	text-transform:uppercase;
+	letter-spacing:.04em;
+}
+.app-qr-dica {
+	font-family:"montserratregular", Arial, serif;
+	font-size:13px;
+	line-height:1.2em;
+	display:block;
+	padding:4px 0 0 0;
+	color:#0233a9;
+}
+
+/* ---- o banner do aplicativo no carrossel -------------------------------- */
+#ini-slides .slideshow .slide.slide-app .image-container,
+#ini-slides .slideshow .slide.slide-app .slide-app-fundo {
+	width:100%;
+	height:100%;
+	background:url('<?php echo $urlsite ?>/images/app-bg.jpg') #0233a9 no-repeat left center;
+	background-size:cover;
+}
+/* a mancha azul que segura o texto do lado direito, sem tapar o celular da foto */
+#ini-slides .slideshow .slide.slide-app .slide-app-fundo::after {
+	content:"";
+	position:absolute;
+	top:0;
+	right:0;
+	bottom:0;
+	left:0;
+	background:linear-gradient(90deg, rgba(2,51,169,0) 0%, rgba(2,51,169,.35) 34%, rgba(2,40,136,.94) 52%, #002888 72%);
+}
+/* a faixa amarela do rodape do slide, como nos outros banners da casa */
+#ini-slides .slideshow .slide.slide-app .slide-app-fundo::before {
+	content:"";
+	position:absolute;
+	/* o ::before do tema base fixa top:0; sem zerar isso, top vence bottom e a
+	   faixa amarela ia parar no ALTO do banner */
+	top:auto;
+	left:0;
+	right:0;
+	bottom:0;
+	height:14px;
+	background:#ffff00;
+	z-index:2;
+}
+#ini-slides .slideshow .slide.slide-app .slide-content {
+	position:absolute;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	z-index:3;
+	display:flex;
+	align-items:center;
+}
+#ini-slides .slideshow .slide.slide-app .caption {
+	padding:0 4%;
+}
+#ini-slides .slide-app-bloco {
+	display:block;
+	width:52%;
+	margin-left:46%;
+	padding:0;
+	-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;
+}
+#ini-slides .slide-app-tag {
+	font-family:"montserratbold", Arial, serif;
+	color:#002888;
+	background:#ffff00;
+	font-size:13px;
+	line-height:1.0em;
+	display:inline-block;
+	padding:8px 14px;
+	margin:0 0 18px 0;
+	border-radius:20px;
+	-moz-border-radius:20px;
+	-webkit-border-radius:20px;
+	text-transform:uppercase;
+	letter-spacing:.06em;
+}
+#ini-slides .slide-app-titulo {
+	font-family:"montserratbold", Arial, serif;
+	color:#fff;
+	font-size:44px;
+	line-height:1.08em;
+	display:block;
+	padding:0 0 14px 0;
+	margin:0;
+	text-shadow:0 2px 14px rgba(0,0,0,.28);
+}
+#ini-slides .slide-app-intro {
+	font-family:"montserratregular", Arial, serif;
+	color:#8ad7ff;
+	font-size:20px;
+	line-height:1.3em;
+	display:block;
+	padding:0 0 18px 0;
+	margin:0;
+}
+#ini-slides .slide-app-vantagens {
+	display:block;
+	padding:0 0 24px 0;
+	margin:0;
+	list-style:none;
+}
+#ini-slides .slide-app-vantagens li {
+	font-family:"montserratregular", Arial, serif;
+	color:#fff;
+	font-size:17px;
+	line-height:1.2em;
+	display:block;
+	padding:0 0 10px 30px;
+	margin:0;
+	position:relative;
+	background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='11' fill='%230bb1f0'/%3E%3Cpath d='M7 12.3l3.2 3.2L17 8.7' fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat left 1px;
+}
+#ini-slides .slide-app-acoes {
+	display:flex;
+	align-items:flex-end;
+	gap:26px;
+	flex-wrap:wrap;
+}
+#ini-slides .slide-app-acoes .app-qr-dica {
+	color:#8ad7ff;
+}
+
+/* ---- o link do cabecalho ------------------------------------------------ */
+#ini-cabecalho .cbl-nav-li-app {
+	font-family:"montserratbold", Arial, serif;
+	color:#0233a9;
+	font-size:14px;
+	font-weight:normal;
+	text-decoration:none;
+	text-transform:none;
+	line-height:1.0em;
+	display:inline-block;
+	padding:10px 14px 10px 32px;
+	margin:0 0 0 6px;
+	border-radius:18px;
+	-moz-border-radius:18px;
+	-webkit-border-radius:18px;
+	background:rgba(11,177,240,.12) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 24 24'%3E%3Cpath fill='%230233a9' d='M17 1H7a3 3 0 0 0-3 3v16a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V4a3 3 0 0 0-3-3zm-5 20.2a1.2 1.2 0 1 1 0-2.4 1.2 1.2 0 0 1 0 2.4zM18 17.5H6V4.5h12v13z'/%3E%3Cpath fill='%230bb1f0' d='M12 6.4l3.2 3.2h-2.1v3.6h-2.2V9.6H8.8L12 6.4z'/%3E%3C/svg%3E") no-repeat 12px center;
+	transition:background-color .18s ease, color .18s ease;
+}
+#ini-cabecalho .cbl-nav-li-app:hover {
+	background-color:rgba(11,177,240,.24);
+	color:#002888;
+}
+
+/* ---- a janela "Baixe o aplicativo" ------------------------------------- */
+body.app-modal-aberto {
+	overflow:hidden;
+}
+.app-modal {
+	position:fixed;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	z-index:2147482000;
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	padding:20px;
+	-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;
+}
+.app-modal[hidden] {
+	display:none;
+}
+.app-modal-fundo {
+	position:absolute;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	background:rgba(0,18,64,.62);
+	backdrop-filter:blur(2px);
+	-webkit-backdrop-filter:blur(2px);
+}
+.app-modal-caixa {
+	position:relative;
+	z-index:1;
+	background:#fff;
+	max-width:520px;
+	width:100%;
+	padding:34px 34px 30px 34px;
+	border-radius:18px;
+	-moz-border-radius:18px;
+	-webkit-border-radius:18px;
+	box-shadow:0 30px 70px -20px rgba(0,18,64,.55);
+	-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;
+	text-align:left;
+	max-height:92vh;
+	overflow-y:auto;
+}
+.app-modal-x {
+	position:absolute;
+	top:12px;
+	right:14px;
+	width:34px;
+	height:34px;
+	line-height:30px;
+	text-align:center;
+	font-size:26px;
+	color:#7596e6;
+	background:none;
+	border:0;
+	cursor:pointer;
+	border-radius:50%;
+	padding:0;
+}
+.app-modal-x:hover {
+	background:#f6f6f6;
+	color:#0233a9;
+}
+.app-modal-tag {
+	font-family:"montserratbold", Arial, serif;
+	color:#002888;
+	background:#ffff00;
+	font-size:11px;
+	line-height:1.0em;
+	display:inline-block;
+	padding:7px 12px;
+	margin:0 0 14px 0;
+	border-radius:20px;
+	-moz-border-radius:20px;
+	-webkit-border-radius:20px;
+	text-transform:uppercase;
+	letter-spacing:.06em;
+}
+.app-modal-titulo {
+	font-family:"montserratbold", Arial, serif;
+	color:#0233a9;
+	font-size:26px;
+	line-height:1.15em;
+	display:block;
+	padding:0 0 8px 0;
+	margin:0;
+}
+.app-modal-intro {
+	font-family:"montserratregular", Arial, serif;
+	color:#777;
+	font-size:16px;
+	line-height:1.3em;
+	display:block;
+	padding:0 0 16px 0;
+	margin:0;
+}
+.app-modal-vantagens {
+	display:block;
+	padding:0 0 20px 0;
+	margin:0;
+	list-style:none;
+}
+.app-modal-vantagens li {
+	font-family:"montserratregular", Arial, serif;
+	color:#373737;
+	font-size:15px;
+	line-height:1.2em;
+	display:block;
+	padding:0 0 9px 28px;
+	margin:0;
+	background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='19' height='19' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='11' fill='%230bb1f0'/%3E%3Cpath d='M7 12.3l3.2 3.2L17 8.7' fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat left 0;
+}
+.app-modal .app-qr {
+	padding:0 0 16px 0;
+	text-align:center;
+}
+.app-modal .app-qr-item {
+	background:#f6f6f6;
+	box-shadow:none;
+	margin:0 8px 8px 8px;
+}
+.app-modal .app-qr-dica {
+	color:#777;
+	text-align:center;
+}
+
+/* ---- Atendimento express: o bloco do aplicativo ------------------------- */
+#ini-atendimento .ant-app {
+	display:block;
+	clear:both;
+	padding:26px 0 0 0;
+	margin:26px 0 0 0;
+	border-top:1px solid rgba(2,51,169,.14);
+}
+#ini-atendimento .ant-app-titulo {
+	font-family:"montserratbold", Arial, serif;
+	color:#0233a9;
+	font-size:22px;
+	line-height:1.15em;
+	display:block;
+	padding:0 0 6px 0;
+	margin:0;
+}
+#ini-atendimento .ant-app-intro {
+	font-family:"montserratregular", Arial, serif;
+	color:#777;
+	font-size:16px;
+	line-height:1.25em;
+	display:block;
+	padding:0 0 16px 0;
+	margin:0;
+}
+#ini-atendimento .ant-app .app-lojas {
+	display:inline-block;
+	vertical-align:bottom;
+	margin-right:26px;
+}
+#ini-atendimento .ant-app .app-qr {
+	display:inline-block;
+	vertical-align:bottom;
+}
+
+/* ---- a secao grande do aplicativo (#ini-app) --------------------------- */
+#ini-app .app-lojas {
+	padding:22px 0 0 0;
+	clear:both;
+}
+#ini-app .app-qr {
+	padding:10px 0 0 0;
+}
+#ini-app .app-qr-dica {
+	color:#8ad7ff;
+}
+
+/* ---- Canais de atendimento: as linhas do aplicativo -------------------- */
+/* as linhas do aplicativo seguem o MESMO desenho dos vizinhos
+   (#cadastro .cnt-li-chat): so o icone muda */
+#cadastro .cnt-li-app-ios,
+#cadastro .cnt-li-app-android {
+	font-family:"montserratbold", Arial, serif;
+	color:#333;
+	font-size:22px;
+	font-weight:normal;
+	text-decoration:none;
+	text-transform:none;
+	line-height:1.0em;
+	display:block;
+	padding:20px 40px 30px 110px;
+	margin:0 0 20px 0;
+	background-color:#fff;
+	background-repeat:no-repeat;
+	background-position:14px center;
+	border-bottom:solid 1px #e3e3e3;
+}
+#cadastro .cnt-li-app-ios span,
+#cadastro .cnt-li-app-android span {
+	font-family:"montserratregular", Arial, serif;
+	color:#777;
+	font-size:20px;
+	font-weight:normal;
+	text-decoration:none;
+	text-transform:none;
+	line-height:1.0em;
+	display:block;
+	padding:8px 0 0 0;
+	margin:0;
+}
+#cadastro .cnt-li-app-ios {
+	background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 24 24'%3E%3Cpath fill='%230233a9' d='M16.365 1.43c0 1.14-.42 2.2-1.26 3.02-.9.9-1.98 1.42-3.12 1.33-.03-1.1.44-2.21 1.25-3 .83-.82 2.06-1.4 3.13-1.35zM20.7 17.2c-.48 1.1-.71 1.6-1.33 2.58-.87 1.36-2.1 3.05-3.62 3.06-1.35.01-1.7-.88-3.53-.87-1.83.01-2.21.89-3.56.88-1.52-.01-2.68-1.54-3.55-2.9-2.44-3.8-2.7-8.26-1.19-10.63C5.14 7.6 6.86 6.62 8.48 6.62c1.65 0 2.69.9 4.05.9 1.32 0 2.13-.9 4.04-.9 1.44 0 2.97.79 4.06 2.15-3.57 1.96-2.99 7.06.07 8.43z'/%3E%3C/svg%3E");
+}
+#cadastro .cnt-li-app-android {
+	background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 24 24'%3E%3Cpath fill='%230233a9' d='M3.6 1.84c-.24.25-.38.64-.38 1.15v18.02c0 .51.14.9.38 1.15l.06.06 10.1-10.1v-.24L3.66 1.78l-.06.06zM17.5 15.9l-3.37-3.37v-.24l3.37-3.37.08.05 3.99 2.27c1.14.64 1.14 1.7 0 2.35l-3.99 2.26-.08.05zM16.6 16.85 13.15 13.4 3.6 22.95c.38.4 1 .45 1.7.06l11.3-6.16M16.6 7.15 5.3.99c-.7-.4-1.32-.35-1.7.05l9.55 9.55 3.45-3.44z'/%3E%3C/svg%3E");
+}
+#cadastro .cad-form-pln-ul .app-qr {
+	padding:6px 0 18px 14px;
+}
+
+/* ---- rodape: os icones das lojas junto das redes sociais ---------------- */
+.rod-social-li-appstore,
+.rod-social-li-googleplay {
+	display:inline-block;
+	vertical-align:top;
+	width:40px;
+	height:40px;
+	margin:0 10px 0 0;
+	border-radius:50%;
+	background-color:rgba(255,255,255,.14);
+	background-repeat:no-repeat;
+	background-position:center;
+	background-size:20px 20px;
+	transition:background-color .18s ease, transform .18s ease;
+}
+.rod-social-li-appstore:hover,
+.rod-social-li-googleplay:hover {
+	background-color:rgba(255,255,255,.28);
+	transform:translateY(-2px);
+}
+.rod-social-li-appstore {
+	background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff' d='M16.365 1.43c0 1.14-.42 2.2-1.26 3.02-.9.9-1.98 1.42-3.12 1.33-.03-1.1.44-2.21 1.25-3 .83-.82 2.06-1.4 3.13-1.35zM20.7 17.2c-.48 1.1-.71 1.6-1.33 2.58-.87 1.36-2.1 3.05-3.62 3.06-1.35.01-1.7-.88-3.53-.87-1.83.01-2.21.89-3.56.88-1.52-.01-2.68-1.54-3.55-2.9-2.44-3.8-2.7-8.26-1.19-10.63C5.14 7.6 6.86 6.62 8.48 6.62c1.65 0 2.69.9 4.05.9 1.32 0 2.13-.9 4.04-.9 1.44 0 2.97.79 4.06 2.15-3.57 1.96-2.99 7.06.07 8.43z'/%3E%3C/svg%3E");
+}
+.rod-social-li-googleplay {
+	background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff' d='M3.6 1.84c-.24.25-.38.64-.38 1.15v18.02c0 .51.14.9.38 1.15l.06.06 10.1-10.1v-.24L3.66 1.78l-.06.06zM17.5 15.9l-3.37-3.37v-.24l3.37-3.37.08.05 3.99 2.27c1.14.64 1.14 1.7 0 2.35l-3.99 2.26-.08.05zM16.6 16.85 13.15 13.4 3.6 22.95c.38.4 1 .45 1.7.06l11.3-6.16M16.6 7.15 5.3.99c-.7-.4-1.32-.35-1.7.05l9.55 9.55 3.45-3.44z'/%3E%3C/svg%3E");
+}
+
+/* telas menores que o banner comporta: o texto encolhe antes de vazar */
+@media (max-width:1400px) {
+	#ini-slides .slide-app-titulo { font-size:36px; }
+	#ini-slides .slide-app-bloco { width:56%; margin-left:42%; }
+}
+@media (max-width:1100px) {
+	#ini-slides .slide-app-titulo { font-size:30px; }
+	#ini-slides .slide-app-vantagens li { font-size:15px; }
+	#ini-slides .slide-app-bloco { width:62%; margin-left:36%; }
+	#ini-slides .slide-app-acoes { gap:16px; }
+}

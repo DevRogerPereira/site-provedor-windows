@@ -122,6 +122,9 @@ if ($dados_contratos->titulo == true) {
                                 <li><a href="<?php echo $url_area_cliente ?>" target="_blank">2ª via de boleto</a></li>
 <?php } ?>
                                 <li><a href="https://chat-linknet.vercel.app/chat" data-lk-chat>Chat online</a></li>
+<?php if ($app_lj_tem == true) { ?>
+                                <li><a href="<?php echo $app_lj_ios_no_ar == true ? $app_lj_ios : $app_lj_android ?>" data-app-abrir class="cbl-li-app">Baixe o app</a></li>
+<?php } ?>
 							</ul>
 						</li>
 					</ul>
@@ -218,6 +221,9 @@ if ($dados_contratos->titulo == true) {
                         <a href="<?php echo $url_area_cliente ?>" target="_blank" class="cbl-nav-li-central">Central do assinante</a>
 <?php } ?>
                         <a href="https://chat-linknet.vercel.app/chat" data-lk-chat class="cbl-nav-li-chat">Chat online</a>
+<?php if ($app_lj_tem == true) { ?>
+                        <a href="<?php echo $app_lj_ios_no_ar == true ? $app_lj_ios : $app_lj_android ?>" data-app-abrir class="cbl-nav-li-app">Baixe o app</a>
+<?php } ?>
 <?php } ?>
                     </div>
                     <div class="row cbl-ul">

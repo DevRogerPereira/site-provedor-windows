@@ -5,7 +5,7 @@
 <?php //include("inc/ini_planos_combos.inc") ?>
 <?php //include("inc/ini_planos_telefonia.inc") ?>
 
-<?php if ($url_area_cliente == true || $app_android == true || $app_ios == true) { ?>
+<?php if ($url_area_cliente == true || $app_lj_tem == true) { ?>
 	<section id="ini-atendimento">
 		<header id="wrap">
 			<div class="container">
@@ -17,11 +17,13 @@
 <?php if ($fone_2 == true) { ?>
                     <a href="<?php echo $fone_2 ?>" target="_blank" class="ant-li-2">Mudar meu plano<span>Também disponível no App</span></a>
 <?php } ?>
-<?php if ($app_android == true) { ?>
-                    <a href="<?php echo $app_android ?>" target="_blank" class="ant-li-3">Baixar nosso App<span>Baixe nosso aplicativo no seu celular</span></a>
-<?php } ?>
-<?php if ($app_ios == true) { ?>
-                    <a href="<?php echo $app_ios ?>" target="_blank" class="ant-li-4">Baixar nosso App<span>Baixe nosso aplicativo no seu celular</span></a>
+<?php if ($app_lj_tem == true) { ?>
+                    <div class="ant-app">
+                        <span class="ant-app-titulo">Resolva tudo pelo aplicativo</span>
+                        <span class="ant-app-intro"><?php echo $app_lj_chamada ?></span>
+<?php $app_bt_tam = "p"; $app_bt_tema = "escuro"; include("inc/app_lojas_botoes.inc"); ?>
+<?php $app_qr_tam = "p"; include("inc/app_lojas_qr.inc"); ?>
+                    </div>
 <?php } ?>
 			</div>
 		</header>
@@ -42,7 +44,7 @@
 
 <?php include("inc/ini_duvidas.inc") ?>
 
-<?php if ($app_android == true || $app_ios == true) { ?>
+<?php if ($app_lj_tem == true) { ?>
 	<section id="ini-app">
 		<header id="wrap">
 			<div class="container">
@@ -52,12 +54,8 @@
                         <a href="<?php echo $urlsite . "/" . $cidade . "/assine/" ?>" class="app-intro">2ª via de fatura e pagamento online</a>
                         <a href="<?php echo $urlsite . "/" . $cidade . "/assine/" ?>" class="app-intro">Suporte técnico</a>
                         <a href="<?php echo $urlsite . "/" . $cidade . "/assine/" ?>" class="app-intro">Acesse conteúdos digitais</a>
-<?php if ($app_android == true) { ?>
-                        <a href="<?php echo $app_android ?>" target="_blank" class="cl-col cl-grid-6 app-icon-android"><img src="<?php echo $urlsite ?>/images/app-li-android.jpg"></a>
-<?php } ?>
-<?php if ($app_ios == true) { ?>
-                        <a href="<?php echo $app_ios ?>" target="_blank" class="cl-col cl-grid-6 app-icon-ios"><img src="<?php echo $urlsite ?>/images/app-li-ios.jpg"></a>
-<?php } ?>
+<?php $app_bt_tam = "g"; $app_bt_tema = "claro"; include("inc/app_lojas_botoes.inc"); ?>
+<?php $app_qr_tam = "p"; include("inc/app_lojas_qr.inc"); ?>
                     </div>
                 </div>
 			</div>
@@ -77,7 +75,7 @@
 <?php //include("inc/ini_planos_combos.inc") ?>
 <?php //include("inc/ini_planos_telefonia.inc") ?>
 
-<?php if ($url_area_cliente == true || $app_android == true || $app_ios == true) { ?>
+<?php if ($url_area_cliente == true || $app_lj_tem == true) { ?>
 	<section id="ini-atendimento">
 		<header id="wrap">
 			<div class="container">
@@ -90,11 +88,13 @@
 <?php if ($fone_2 == true) { ?>
                     <a href="<?php echo $fone_2 ?>" target="_blank" class="ant-li-2">Mudar meu plano<span>Também disponível no App</span></a>
 <?php } ?>
-<?php if ($app_android == true) { ?>
-                    <a href="<?php echo $app_android ?>" target="_blank" class="ant-li-3">Baixar nosso App<span>Baixe nosso aplicativo no seu celular</span></a>
-<?php } ?>
-<?php if ($app_ios == true) { ?>
-                    <a href="<?php echo $app_ios ?>" target="_blank" class="ant-li-4">Baixar nosso App<span>Baixe nosso aplicativo no seu celular</span></a>
+<?php if ($app_lj_tem == true) { ?>
+                    <div class="ant-app">
+                        <span class="ant-app-titulo">Resolva tudo pelo aplicativo</span>
+                        <span class="ant-app-intro"><?php echo $app_lj_chamada ?></span>
+<?php $app_bt_tam = "p"; $app_bt_tema = "escuro"; include("inc/app_lojas_botoes.inc"); ?>
+<?php $app_qr_tam = "p"; include("inc/app_lojas_qr.inc"); ?>
+                    </div>
 <?php } ?>
                 </div>
 			</div>
@@ -116,7 +116,7 @@
 
 <?php include("inc/ini_duvidas.inc") ?>
 
-<?php if ($app_android == true || $app_ios == true) { ?>
+<?php if ($app_lj_tem == true) { ?>
 	<section id="ini-app">
 		<header id="wrap">
 			<div class="container">
@@ -126,12 +126,8 @@
                         <a href="<?php echo $urlsite . "/" . $cidade . "/assine/" ?>" class="app-intro">2ª via de fatura e pagamento online</a>
                         <a href="<?php echo $urlsite . "/" . $cidade . "/assine/" ?>" class="app-intro">Suporte técnico</a>
                         <a href="<?php echo $urlsite . "/" . $cidade . "/assine/" ?>" class="app-intro">Acesse conteúdos digitais</a>
-<?php if ($app_android == true) { ?>
-                        <a href="<?php echo $app_android ?>" target="_blank" class="app-icon-android"><img src="<?php echo $urlsite ?>/images/app-li-android.jpg"></a>
-<?php } ?>
-<?php if ($app_ios == true) { ?>
-                        <a href="<?php echo $app_ios ?>" target="_blank" class="app-icon-ios"><img src="<?php echo $urlsite ?>/images/app-li-ios.jpg"></a>
-<?php } ?>
+<?php $app_bt_tam = "g"; $app_bt_tema = "claro"; include("inc/app_lojas_botoes.inc"); ?>
+<?php $app_qr_tam = "p"; include("inc/app_lojas_qr.inc"); ?>
                     </div>
                 </div>
 			</div>

@@ -1,4 +1,9 @@
-<?php if($dados_rows_slides > 0) { ?>
+<?php
+// A secao existe quando ha slide no banco OU quando o banner do aplicativo
+// esta ligado: o banner e codigo, nao linha de tabela, e nao pode depender de
+// alguem ter cadastrado uma imagem.
+if ($dados_rows_slides > 0 || $app_lj_tem == true) {
+?>
 <?php if ($detect->isMobile()) : ?>
 	<section id="ini-slides">
 		<header id="wrap">
@@ -6,6 +11,7 @@
 				<section class="slideshow">
 					<div class="slideshow-inner">
 						<div class="slides">
+<?php if ($app_lj_tem == true) { include("inc/ini_slides_app.inc"); } ?>
 <?php
                     
 	$sql_slides = mysqli_query($conexao,"SELECT * FROM slides WHERE del = 'N' ORDER BY RAND() LIMIT 3");
@@ -29,14 +35,16 @@
                     
 	}
                     
-	if ($key_valor == 1) { 
-	
+	// com o banner do aplicativo na frente, quem nasce ativo e ELE: dois slides
+	// com `is-active` apareceriam empilhados ate o primeiro giro do carrossel
+	if ($key_valor == 1 && $app_lj_tem == false) {
+
 	   $dados_key_valor = " is-active";
-	   
+
 	} else {
-		
+
 	   $dados_key_valor = "";
-	   
+
 	}
 
 ?>
@@ -54,12 +62,17 @@
 							</div>
 <?php } ?>
 						</div>
-<?php if($sql_slides_tr > 1) { ?>
+<?php
+	// O banner do aplicativo conta como slide nas bolinhas e nas setas, senao a
+	// ultima bolinha nunca acende e a seta pula um slide que esta ali.
+	$sql_slides_total = $sql_slides_tr + ($app_lj_tem == true ? 1 : 0);
+?>
+<?php if($sql_slides_total > 1) { ?>
                         <div class="pagination">
 <?php
                     
 	// Bolinhas de paginacao: reaproveita a contagem ja conhecida (sem refazer a query ORDER BY RAND())
-	for ($key_valor = 1; $key_valor <= $sql_slides_tr; $key_valor++) {
+	for ($key_valor = 1; $key_valor <= $sql_slides_total; $key_valor++) {
 	$dados_key_valor = ($key_valor == 1) ? " is-active" : "";
 ?>
 							<div class="item<?php echo $dados_key_valor ?>">
@@ -95,6 +108,7 @@
 				<section class="slideshow">
 					<div class="slideshow-inner">
 						<div class="slides">
+<?php if ($app_lj_tem == true) { include("inc/ini_slides_app.inc"); } ?>
 
 <?php
                     
@@ -119,14 +133,16 @@
                     
 	}
                     
-	if ($key_valor == 1) { 
-	
+	// com o banner do aplicativo na frente, quem nasce ativo e ELE: dois slides
+	// com `is-active` apareceriam empilhados ate o primeiro giro do carrossel
+	if ($key_valor == 1 && $app_lj_tem == false) {
+
 	   $dados_key_valor = " is-active";
-	   
+
 	} else {
-		
+
 	   $dados_key_valor = "";
-	   
+
 	}
 
 ?>
@@ -144,12 +160,17 @@
 							</div>
 <?php } ?>
 						</div>
-<?php if($sql_slides_tr > 1) { ?>
+<?php
+	// O banner do aplicativo conta como slide nas bolinhas e nas setas, senao a
+	// ultima bolinha nunca acende e a seta pula um slide que esta ali.
+	$sql_slides_total = $sql_slides_tr + ($app_lj_tem == true ? 1 : 0);
+?>
+<?php if($sql_slides_total > 1) { ?>
                         <div class="pagination">
 <?php
                     
 	// Bolinhas de paginacao: reaproveita a contagem ja conhecida (sem refazer a query ORDER BY RAND())
-	for ($key_valor = 1; $key_valor <= $sql_slides_tr; $key_valor++) {
+	for ($key_valor = 1; $key_valor <= $sql_slides_total; $key_valor++) {
 	$dados_key_valor = ($key_valor == 1) ? " is-active" : "";
 ?>
 							<div class="item<?php echo $dados_key_valor ?>">

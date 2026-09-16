@@ -26,6 +26,12 @@
 <?php if ($social_twitter == true) { ?>
                         <a href="<?php echo $social_twitter ?>" target="_blank" class="rod-social-li-twitter"></a>
 <?php } ?>
+<?php if ($app_lj_ios_no_ar == true) { ?>
+                        <a href="<?php echo $app_lj_ios ?>" target="_blank" rel="noopener" class="rod-social-li-appstore" aria-label="Baixar o aplicativo na App Store" title="Baixar na App Store"></a>
+<?php } ?>
+<?php if ($app_lj_android_no_ar == true) { ?>
+                        <a href="<?php echo $app_lj_android ?>" target="_blank" rel="noopener" class="rod-social-li-googleplay" aria-label="Baixar o aplicativo no Google Play" title="Baixar no Google Play"></a>
+<?php } ?>
                     </div>
                 	<div class="row">
                         <span class="rdp-li-titulo">Menu</span>
@@ -124,6 +130,12 @@
 <?php } ?>
 <?php if ($social_twitter == true) { ?>
                         <a href="<?php echo $social_twitter ?>" target="_blank" class="rod-social-li-twitter"></a>
+<?php } ?>
+<?php if ($app_lj_ios_no_ar == true) { ?>
+                        <a href="<?php echo $app_lj_ios ?>" target="_blank" rel="noopener" class="rod-social-li-appstore" aria-label="Baixar o aplicativo na App Store" title="Baixar na App Store"></a>
+<?php } ?>
+<?php if ($app_lj_android_no_ar == true) { ?>
+                        <a href="<?php echo $app_lj_android ?>" target="_blank" rel="noopener" class="rod-social-li-googleplay" aria-label="Baixar o aplicativo no Google Play" title="Baixar no Google Play"></a>
 <?php } ?>
                     </div>
                 	<div class="cl-col-div cl-grid-2">
@@ -360,5 +372,6 @@ function abreFecha(sel) {
 	};
 </script>
 <?php if(isset($pixel_body)) { echo $pixel_body; } ?>
+<?php if ($app_lj_tem == true) { include("inc/app_lojas_modal.inc"); } ?>
 <!-- Chat LinkNet: widget flutuante (servido pela Vercel; sem deploy do site para atualizar) -->
 <script src="https://chat-linknet.vercel.app/widget.js" async></script>

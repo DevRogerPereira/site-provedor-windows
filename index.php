@@ -103,6 +103,10 @@ include("adm/conexao.php");
 // funcoes
 include("inc/funcoes.php");
 
+// o aplicativo nas lojas: enderecos, estado de cada loja e textos, numa fonte
+// unica para o banner, o cabecalho, o rodape e as secoes de atendimento
+include("inc/app_lojas.inc");
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

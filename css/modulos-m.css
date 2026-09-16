@@ -2672,3 +2672,385 @@ hr,ul:after{clear:both}body{font:13px/1.5 cairoregular,Arial,"Liberation Sans",F
 #ini-cabecalho .cbl-nav-li-chat:hover {
 	color:#0233a9;
 }
+
+/* =========================================================================
+   O APLICATIVO NAS LOJAS, no CELULAR.
+   Aqui o QR code nao serve para nada (a pessoa ja esta com o telefone na mao):
+   ele some e ficam so os botoes das lojas, que abrem a loja direto.
+   O banner do carrossel cabe em 192px, a altura do slideshow no celular.
+   ========================================================================= */
+
+/* ---- os botoes das lojas ------------------------------------------------ */
+.app-lojas {
+	display:block;
+	padding:0;
+	margin:0;
+	font-size:0;
+}
+.app-loja {
+	display:inline-block;
+	vertical-align:top;
+	text-decoration:none;
+	padding:8px 14px 8px 40px;
+	margin:0 8px 8px 0;
+	position:relative;
+	border-radius:9px;
+	-moz-border-radius:9px;
+	-webkit-border-radius:9px;
+	-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;
+}
+.app-loja-icone {
+	position:absolute;
+	left:12px;
+	top:50%;
+	width:20px;
+	height:20px;
+	margin-top:-10px;
+	display:block;
+}
+.app-loja-icone svg {
+	width:100%;
+	height:100%;
+	display:block;
+	fill:currentColor;
+}
+.app-loja-txt {
+	display:block;
+	text-align:left;
+}
+.app-loja-txt-1 {
+	font-family:"montserratregular", Arial, serif;
+	font-size:10px;
+	line-height:1.1em;
+	display:block;
+	opacity:.85;
+}
+.app-loja-txt-2 {
+	font-family:"montserratbold", Arial, serif;
+	font-size:14px;
+	line-height:1.15em;
+	display:block;
+}
+.app-lojas-claro .app-loja {
+	background:#fff;
+	color:#002888;
+	box-shadow:0 4px 12px -4px rgba(0,0,0,.45);
+}
+.app-lojas-escuro .app-loja {
+	background:#0233a9;
+	color:#fff;
+	box-shadow:0 4px 12px -6px rgba(2,51,169,.65);
+}
+.app-loja-breve {
+	opacity:.55;
+	box-shadow:none !important;
+}
+
+/* O QR CODE NAO APARECE NO CELULAR. Quem esta no telefone toca no botao; pedir
+   para a pessoa apontar a camera para a propria tela seria piada. */
+.app-qr {
+	display:none !important;
+}
+
+/* ---- o banner do aplicativo no carrossel (192px) ----------------------- */
+#ini-slides .slideshow .slide.slide-app .image-container,
+#ini-slides .slideshow .slide.slide-app .slide-app-fundo {
+	width:100%;
+	height:100%;
+	background:url('<?php echo $urlsite ?>/images/app-bg-m.jpg') #0233a9 no-repeat left center;
+	background-size:cover;
+}
+#ini-slides .slideshow .slide.slide-app .slide-app-fundo::after {
+	content:"";
+	position:absolute;
+	top:0;
+	right:0;
+	bottom:0;
+	left:0;
+	background:linear-gradient(90deg, rgba(2,51,169,.10) 0%, rgba(2,40,136,.86) 34%, #002888 62%);
+}
+#ini-slides .slideshow .slide.slide-app .slide-app-fundo::before {
+	content:"";
+	position:absolute;
+	/* o ::before do tema base fixa top:0; sem zerar isso, top vence bottom e a
+	   faixa amarela ia parar no ALTO do banner */
+	top:auto;
+	left:0;
+	right:0;
+	bottom:0;
+	height:6px;
+	background:#ffff00;
+	z-index:2;
+}
+#ini-slides .slideshow .slide.slide-app .slide-content {
+	position:absolute;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	z-index:3;
+	display:flex;
+	align-items:center;
+}
+#ini-slides .slideshow .slide.slide-app .caption {
+	padding:0 4%;
+}
+#ini-slides .slide-app-bloco {
+	display:block;
+	width:66%;
+	margin-left:33%;
+	padding:0;
+	-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;
+}
+#ini-slides .slide-app-tag {
+	font-family:"montserratbold", Arial, serif;
+	color:#002888;
+	background:#ffff00;
+	font-size:9px;
+	line-height:1.0em;
+	display:inline-block;
+	padding:5px 9px;
+	margin:0 0 7px 0;
+	border-radius:14px;
+	-moz-border-radius:14px;
+	-webkit-border-radius:14px;
+	text-transform:uppercase;
+	letter-spacing:.05em;
+}
+#ini-slides .slide-app-titulo {
+	font-family:"montserratbold", Arial, serif;
+	color:#fff;
+	font-size:16px;
+	line-height:1.14em;
+	display:block;
+	padding:0 0 9px 0;
+	margin:0;
+}
+/* a chamada e a lista de vantagens nao cabem em 192px: quem conta essa
+   historia no celular sao o Atendimento express e a secao do aplicativo */
+#ini-slides .slide-app-intro,
+#ini-slides .slide-app-vantagens {
+	display:none;
+}
+#ini-slides .slide-app-acoes {
+	display:block;
+}
+#ini-slides .slide-app-acoes .app-loja {
+	margin:0 6px 0 0;
+	padding:6px 10px 6px 32px;
+}
+#ini-slides .slide-app-acoes .app-loja-icone {
+	left:9px;
+	width:16px;
+	height:16px;
+	margin-top:-8px;
+}
+#ini-slides .slide-app-acoes .app-loja-txt-1 { font-size:8px; }
+#ini-slides .slide-app-acoes .app-loja-txt-2 { font-size:12px; }
+
+/* ---- o link do menu ----------------------------------------------------- */
+#ini-cabecalho .cbl-li-app {
+	color:#0233a9 !important;
+	font-family:"montserratbold", Arial, serif;
+}
+
+/* ---- a janela "Baixe o aplicativo" ------------------------------------- */
+body.app-modal-aberto {
+	overflow:hidden;
+}
+.app-modal {
+	position:fixed;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	z-index:2147482000;
+	display:flex;
+	align-items:flex-end;
+	padding:0;
+}
+.app-modal[hidden] {
+	display:none;
+}
+.app-modal-fundo {
+	position:absolute;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	background:rgba(0,18,64,.62);
+}
+.app-modal-caixa {
+	position:relative;
+	z-index:1;
+	background:#fff;
+	width:100%;
+	padding:26px 20px 24px 20px;
+	border-radius:18px 18px 0 0;
+	-moz-border-radius:18px 18px 0 0;
+	-webkit-border-radius:18px 18px 0 0;
+	-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;
+	max-height:90vh;
+	overflow-y:auto;
+}
+.app-modal-x {
+	position:absolute;
+	top:8px;
+	right:10px;
+	width:34px;
+	height:34px;
+	line-height:30px;
+	text-align:center;
+	font-size:26px;
+	color:#7596e6;
+	background:none;
+	border:0;
+	padding:0;
+	border-radius:50%;
+}
+.app-modal-tag {
+	font-family:"montserratbold", Arial, serif;
+	color:#002888;
+	background:#ffff00;
+	font-size:10px;
+	line-height:1.0em;
+	display:inline-block;
+	padding:6px 11px;
+	margin:0 0 12px 0;
+	border-radius:16px;
+	-moz-border-radius:16px;
+	-webkit-border-radius:16px;
+	text-transform:uppercase;
+	letter-spacing:.05em;
+}
+.app-modal-titulo {
+	font-family:"montserratbold", Arial, serif;
+	color:#0233a9;
+	font-size:20px;
+	line-height:1.15em;
+	display:block;
+	padding:0 0 6px 0;
+	margin:0;
+}
+.app-modal-intro {
+	font-family:"montserratregular", Arial, serif;
+	color:#777;
+	font-size:15px;
+	line-height:1.3em;
+	display:block;
+	padding:0 0 14px 0;
+	margin:0;
+}
+.app-modal-vantagens {
+	display:block;
+	padding:0 0 18px 0;
+	margin:0;
+	list-style:none;
+}
+.app-modal-vantagens li {
+	font-family:"montserratregular", Arial, serif;
+	color:#373737;
+	font-size:14px;
+	line-height:1.2em;
+	display:block;
+	padding:0 0 9px 26px;
+	margin:0;
+	background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='11' fill='%230bb1f0'/%3E%3Cpath d='M7 12.3l3.2 3.2L17 8.7' fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat left 0;
+}
+
+/* ---- Atendimento express: o bloco do aplicativo ------------------------- */
+#ini-atendimento .ant-app {
+	display:block;
+	clear:both;
+	padding:20px 0 0 0;
+	margin:18px 0 0 0;
+	border-top:1px solid rgba(2,51,169,.14);
+}
+#ini-atendimento .ant-app-titulo {
+	font-family:"montserratbold", Arial, serif;
+	color:#0233a9;
+	font-size:17px;
+	line-height:1.15em;
+	display:block;
+	padding:0 0 5px 0;
+	margin:0;
+}
+#ini-atendimento .ant-app-intro {
+	font-family:"montserratregular", Arial, serif;
+	color:#777;
+	font-size:14px;
+	line-height:1.25em;
+	display:block;
+	padding:0 0 13px 0;
+	margin:0;
+}
+
+/* ---- a secao grande do aplicativo (#ini-app) --------------------------- */
+#ini-app .app-lojas {
+	padding:16px 0 0 0;
+	clear:both;
+}
+
+/* ---- Canais de atendimento: as linhas do aplicativo -------------------- */
+/* as linhas do aplicativo seguem o MESMO desenho dos vizinhos
+   (#cadastro .cnt-li-chat): so o icone muda */
+#cadastro .cnt-li-app-ios,
+#cadastro .cnt-li-app-android {
+	font-family:"montserratbold", Arial, serif;
+	color:#333;
+	font-size:22px;
+	font-weight:normal;
+	text-decoration:none;
+	text-transform:none;
+	line-height:1.0em;
+	display:block;
+	padding:20px 40px 30px 110px;
+	margin:0 0 20px 0;
+	background-color:#fff;
+	background-repeat:no-repeat;
+	background-position:14px center;
+	border-bottom:solid 1px #e3e3e3;
+}
+#cadastro .cnt-li-app-ios span,
+#cadastro .cnt-li-app-android span {
+	font-family:"montserratregular", Arial, serif;
+	color:#777;
+	font-size:20px;
+	font-weight:normal;
+	text-decoration:none;
+	text-transform:none;
+	line-height:1.0em;
+	display:block;
+	padding:8px 0 0 0;
+	margin:0;
+}
+#cadastro .cnt-li-app-ios {
+	background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 24 24'%3E%3Cpath fill='%230233a9' d='M16.365 1.43c0 1.14-.42 2.2-1.26 3.02-.9.9-1.98 1.42-3.12 1.33-.03-1.1.44-2.21 1.25-3 .83-.82 2.06-1.4 3.13-1.35zM20.7 17.2c-.48 1.1-.71 1.6-1.33 2.58-.87 1.36-2.1 3.05-3.62 3.06-1.35.01-1.7-.88-3.53-.87-1.83.01-2.21.89-3.56.88-1.52-.01-2.68-1.54-3.55-2.9-2.44-3.8-2.7-8.26-1.19-10.63C5.14 7.6 6.86 6.62 8.48 6.62c1.65 0 2.69.9 4.05.9 1.32 0 2.13-.9 4.04-.9 1.44 0 2.97.79 4.06 2.15-3.57 1.96-2.99 7.06.07 8.43z'/%3E%3C/svg%3E");
+}
+#cadastro .cnt-li-app-android {
+	background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 24 24'%3E%3Cpath fill='%230233a9' d='M3.6 1.84c-.24.25-.38.64-.38 1.15v18.02c0 .51.14.9.38 1.15l.06.06 10.1-10.1v-.24L3.66 1.78l-.06.06zM17.5 15.9l-3.37-3.37v-.24l3.37-3.37.08.05 3.99 2.27c1.14.64 1.14 1.7 0 2.35l-3.99 2.26-.08.05zM16.6 16.85 13.15 13.4 3.6 22.95c.38.4 1 .45 1.7.06l11.3-6.16M16.6 7.15 5.3.99c-.7-.4-1.32-.35-1.7.05l9.55 9.55 3.45-3.44z'/%3E%3C/svg%3E");
+}
+#cadastro .cad-form-pln-ul .app-qr {
+	padding:6px 0 18px 14px;
+}
+
+/* ---- rodape: os icones das lojas junto das redes sociais ---------------- */
+.rod-social-li-appstore,
+.rod-social-li-googleplay {
+	display:inline-block;
+	vertical-align:top;
+	width:36px;
+	height:36px;
+	margin:0 8px 0 0;
+	border-radius:50%;
+	background-color:rgba(255,255,255,.14);
+	background-repeat:no-repeat;
+	background-position:center;
+	background-size:18px 18px;
+}
+.rod-social-li-appstore {
+	background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff' d='M16.365 1.43c0 1.14-.42 2.2-1.26 3.02-.9.9-1.98 1.42-3.12 1.33-.03-1.1.44-2.21 1.25-3 .83-.82 2.06-1.4 3.13-1.35zM20.7 17.2c-.48 1.1-.71 1.6-1.33 2.58-.87 1.36-2.1 3.05-3.62 3.06-1.35.01-1.7-.88-3.53-.87-1.83.01-2.21.89-3.56.88-1.52-.01-2.68-1.54-3.55-2.9-2.44-3.8-2.7-8.26-1.19-10.63C5.14 7.6 6.86 6.62 8.48 6.62c1.65 0 2.69.9 4.05.9 1.32 0 2.13-.9 4.04-.9 1.44 0 2.97.79 4.06 2.15-3.57 1.96-2.99 7.06.07 8.43z'/%3E%3C/svg%3E");
+}
+.rod-social-li-googleplay {
+	background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff' d='M3.6 1.84c-.24.25-.38.64-.38 1.15v18.02c0 .51.14.9.38 1.15l.06.06 10.1-10.1v-.24L3.66 1.78l-.06.06zM17.5 15.9l-3.37-3.37v-.24l3.37-3.37.08.05 3.99 2.27c1.14.64 1.14 1.7 0 2.35l-3.99 2.26-.08.05zM16.6 16.85 13.15 13.4 3.6 22.95c.38.4 1 .45 1.7.06l11.3-6.16M16.6 7.15 5.3.99c-.7-.4-1.32-.35-1.7.05l9.55 9.55 3.45-3.44z'/%3E%3C/svg%3E");
+}
