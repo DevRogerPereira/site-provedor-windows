@@ -2452,6 +2452,17 @@
 	padding:0;
 	margin:0;
 	text-align:center;
+	/* ACIMA DOS FLUTUANTES, e nao atras deles.
+	 *
+	 * O `z-index:99999` que estava no `.cookie-ul` nao valia NADA: aquele elemento e estatico, e
+	 * z-index so conta em elemento posicionado. Na pratica a barra de consentimento ficava no
+	 * fundo, e o botao do WhatsApp (99999) e os selos (99998) passavam por cima dela. Medido em
+	 * 17/09/2026 com `document.elementFromPoint` sobre o "Concordar" no celular: quem recebia o
+	 * toque era o SELO, e nao o botao, ou seja o aviso de cookies ficava em parte intocavel.
+	 *
+	 * 1000000 fica acima dos dois flutuantes e abaixo da janela "Baixe o aplicativo"
+	 * (2147482000) e do painel do chat (2147483000), que sao dialogos de primeiro plano. */
+	z-index:1000000;
 }
 #cookie .cookie-ul {
 	display:block;
@@ -2537,15 +2548,19 @@ hr,ul:after{clear:both}body{font:13px/1.5 cairoregular,Arial,"Liberation Sans",F
 }
 
 /* Melhor Plano - selos flutuantes (propaganda - mobile) */
+/* No celular eles ja eram lado a lado; o que mudou em 17/09/2026 foi o LADO. Na direita, mesmo
+ * acima do botao do WhatsApp, os dois selos disputavam a mesma coluna dele e do chat; na esquerda
+ * eles dividem a linha de baixo com os dois botoes redondos, que e a tira de tela onde nao ha
+ * conteudo para tampar. */
 .melhorplano-selos-flutuantes{
 	position:fixed;
-	right:12px;
-	bottom:86px;           /* logo acima do botao do WhatsApp, sem cobrir conteudo */
+	left:12px;
+	bottom:25px;           /* a mesma linha de base do botao do WhatsApp, do outro lado */
 	z-index:99998;
 	display:flex;
 	flex-direction:row;    /* mobile: os dois selos lado a lado */
 	gap:8px;
-	align-items:center;
+	align-items:flex-end;
 	pointer-events:none; /* não intercepta cliques fora do banner */
 }
 .melhorplano-selos-flutuantes a{
@@ -2554,24 +2569,24 @@ hr,ul:after{clear:both}body{font:13px/1.5 cairoregular,Arial,"Liberation Sans",F
 }
 .melhorplano-selos-flutuantes img{
 	display:block;
-	width:80px;            /* menor: ocupa bem menos espaco na tela do celular */
-	height:46.4px;         /* mantem a proporcao 150:87.02 */
+	width:72px;            /* menor: ocupa bem menos espaco na tela do celular */
+	height:41.77px;        /* mantem a proporcao 150:87.02 */
 	object-fit:contain;
 	max-width:none;
 	max-height:none;
 }
 .melhorplano-selos-flutuantes a:hover img,
 .melhorplano-selos-flutuantes a:active img{
-	width:80px;            /* nao cresce no toque (evita cobrir a tela no mobile) */
-	height:46.4px;
+	width:72px;            /* nao cresce no toque (evita cobrir a tela no mobile) */
+	height:41.77px;
 }
 .melhorplano-selo-2026 img{
-	width:80px;
-	height:46.4px;
+	width:72px;
+	height:41.77px;
 }
 .melhorplano-selo-2025 img{
-	width:80px;
-	height:46.4px;
+	width:72px;
+	height:41.77px;
 }
 @font-face {
     font-family: 'montserratextrabold';

@@ -2579,6 +2579,17 @@
 	padding:0;
 	margin:0;
 	text-align:center;
+	/* ACIMA DOS FLUTUANTES, e nao atras deles.
+	 *
+	 * O `z-index:99999` que estava no `.cookie-ul` nao valia NADA: aquele elemento e estatico, e
+	 * z-index so conta em elemento posicionado. Na pratica a barra de consentimento ficava no
+	 * fundo, e o botao do WhatsApp (99999) e os selos (99998) passavam por cima dela. Medido em
+	 * 17/09/2026 com `document.elementFromPoint` sobre o "Concordar" no celular: quem recebia o
+	 * toque era o SELO, e nao o botao, ou seja o aviso de cookies ficava em parte intocavel.
+	 *
+	 * 1000000 fica acima dos dois flutuantes e abaixo da janela "Baixe o aplicativo"
+	 * (2147482000) e do painel do chat (2147483000), que sao dialogos de primeiro plano. */
+	z-index:1000000;
 }
 #cookie .cookie-ul {
 	display:block;
@@ -2661,42 +2672,61 @@ hr,ul:after{clear:both}body{font:13px/1.5 cairoregular,Arial,"Liberation Sans",F
 
 }
 
-/* Melhor Plano - selos flutuantes (propaganda) */
+/* Melhor Plano - selos flutuantes (propaganda)
+ *
+ * ELES MORAM NA ESQUERDA, LADO A LADO (pedido do Roger em 17/09/2026: "coloque os selos na
+ * esquerda, um do lado do outro, como o icone de chat e de WhatsApp, paralelos e simetricos,
+ * ocupando o menor espaco e atrapalhando menos quem navega; assim ele fica tampando coisas
+ * importantes").
+ *
+ * Ate hoje eram DOIS selos de 150px EMPILHADOS na direita, e o hover levava cada um a 350x203 -
+ * um retangulo maior que o carrossel inteiro, bem em cima do texto da oferta e dos botoes das
+ * lojas. Agora:
+ *   - canto de baixo a ESQUERDA, na MESMA linha de base dos dois botoes redondos da direita
+ *     (bottom:25px, o do .rpd-whatsapp img), para a tela ficar simetrica;
+ *   - em LINHA, com 112px cada, ou seja 65px de altura: quase a mesma altura dos botoes de 62px
+ *     do outro lado, num rodape de tela que e area vazia;
+ *   - o hover NAO cresce mais. O feedback e uma subida de 2px, igual a dos botoes: crescer era
+ *     justamente o que tampava o conteudo.
+ */
 .melhorplano-selos-flutuantes{
 	position:fixed;
-	right:20px;
-	bottom:110px;
+	left:20px;
+	bottom:25px;
 	z-index:99998;
 	display:flex;
-	flex-direction:column;
-	gap:12px;
+	flex-direction:row;
+	gap:10px;
 	align-items:flex-end;
 	pointer-events:none; /* não intercepta cliques fora do banner */
 }
 .melhorplano-selos-flutuantes a{
 	pointer-events:auto;
 	display:block;
+	transition: transform 0.2s ease;
 }
 .melhorplano-selos-flutuantes img{
 	display:block;
-	width:150px;
-	height:87.02px;
+	width:112px;
+	height:64.97px; /* 150:87.02, a proporcao do arquivo */
 	object-fit:contain;
-	transition: width 0.2s ease, height 0.2s ease;
-	max-width:calc(100vw - 40px);
-	max-height:203.05px;
+	max-width:none;
+	max-height:none;
+}
+.melhorplano-selos-flutuantes a:hover{
+	transform:translateY(-2px);
 }
 .melhorplano-selos-flutuantes a:hover img{
-	width:350px;
-	height:203.05px;
+	width:112px;
+	height:64.97px;
 }
 .melhorplano-selo-2026 img{
-	width:150px;
-	height:87.02px;
+	width:112px;
+	height:64.97px;
 }
 .melhorplano-selo-2025 img{
-	width:150px;
-	height:87.02px;
+	width:112px;
+	height:64.97px;
 }
 @font-face {
     font-family: 'montserratextrabold';
