@@ -221,6 +221,7 @@ if ($dados_contratos->titulo == true) {
                         <a href="<?php echo $url_area_cliente ?>" target="_blank" class="cbl-nav-li-central">Central do assinante</a>
 <?php } ?>
                         <a href="https://chat-linknet.vercel.app/chat" data-lk-chat class="cbl-nav-li-chat">Chat online</a>
+                        <a href="https://chat-linknet.vercel.app/chat" data-lk-chat data-lk-chat-cheio class="cbl-nav-li-cheio" title="Abrir o chat em tela cheia" aria-label="Abrir o chat em tela cheia"><span>Abrir em tela cheia</span></a>
 <?php if ($app_lj_tem == true) { ?>
                         <a href="<?php echo $app_lj_ios_no_ar == true ? $app_lj_ios : $app_lj_android ?>" data-app-abrir class="cbl-nav-li-app">Baixe o app</a>
 <?php } ?>
@@ -276,4 +277,29 @@ if ($dados_contratos->titulo == true) {
 			</div>
 		</header>
 	</section>
+<script>
+	/* O AVISO DE QUE EXISTE TELA CHEIA. O item "Abrir em tela cheia" nasce como um icone ao lado do
+	   "Chat online"; aqui as palavras dele se abrem e se fecham tres vezes, uma vez por sessao, para
+	   o recurso nao passar em branco. Depois disso ele volta a ser icone e nao insiste mais: aviso
+	   que repete a cada pagina virou propaganda. Quem ja usou a tela cheia (o widget grava
+	   `lk_chat_cheio` no localStorage) nao ve o aviso nenhuma vez. */
+	(function () {
+		var item = document.querySelector('.cbl-nav-li-cheio');
+		if (!item) return;
+		var jaViu = '0';
+		var jaUsou = false;
+		try {
+			jaViu = sessionStorage.getItem('lk_cheio_aviso') || '0';
+			jaUsou = localStorage.getItem('lk_chat_cheio') === '1';
+		} catch (e) {
+			/* sem storage: avisa nesta pagina e pronto */
+		}
+		if (jaViu === '1' || jaUsou) return;
+		try { sessionStorage.setItem('lk_cheio_aviso', '1'); } catch (e) {}
+		setTimeout(function () {
+			item.classList.add('chamando');
+			setTimeout(function () { item.classList.remove('chamando'); }, 8200);
+		}, 3200);
+	})();
+</script>
 <?php endif; ?>

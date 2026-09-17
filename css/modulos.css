@@ -2828,6 +2828,76 @@ hr,ul:after{clear:both}body{font:13px/1.5 cairoregular,Arial,"Liberation Sans",F
 	color:#0233a9;
 }
 
+/* ABRIR O CHAT EM TELA CHEIA (pedido do Roger em 17/09/2026: "uma opcao de abrir o chat em tela
+ * cheia, bem parecida com WhatsApp Web; discreta e ao mesmo tempo visivel e clara o que faz, com o
+ * escrito aparecendo e depois sumindo, algo para chamar atencao que tem o recurso").
+ *
+ * O item nasce url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 24 24' fill='none' stroke='%230233a9' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5'/%3E%3C/svg%3E"), do tamanho de uma letra, ao lado do "Chat online": discreto. As palavras
+ * moram nele e se abrem em tres situacoes: no hover, no foco pelo teclado, e sozinhas por tres
+ * vezes na primeira visita da sessao (a classe `chamando`, que o cabecalho liga por JS). Depois
+ * disso o item volta a ser icone e nao insiste mais.
+ *
+ * O MESMO gesto existe dentro do chat, no botao do painel (widget.js): quem nao ver aqui ve la. */
+#ini-cabecalho .cbl-nav-li-cheio {
+	font-family: "montserratregular", Arial, serif;
+	color:#0233a9;
+	font-size:13px;
+	font-weight:normal;
+	text-decoration:none;
+	line-height:1.0em;
+	display:inline-flex;
+	align-items:center;
+	vertical-align:middle;
+	padding:10px 4px 10px 21px;
+	margin:0;
+	background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 24 24' fill='none' stroke='%230233a9' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5'/%3E%3C/svg%3E") no-repeat 2px 50%;
+	cursor:pointer;
+	border-radius:14px;
+}
+#ini-cabecalho .cbl-nav-li-cheio span {
+	display:inline-block;
+	max-width:0;
+	opacity:0;
+	overflow:hidden;
+	white-space:nowrap;
+	-webkit-transition: max-width .3s ease, opacity .3s ease;
+	transition: max-width .3s ease, opacity .3s ease;
+}
+#ini-cabecalho .cbl-nav-li-cheio:hover span,
+#ini-cabecalho .cbl-nav-li-cheio:focus span {
+	max-width:170px;
+	opacity:1;
+}
+#ini-cabecalho .cbl-nav-li-cheio:hover {
+	background-color:rgba(2,51,169,0.07);
+}
+#ini-cabecalho .cbl-nav-li-cheio.chamando {
+	-webkit-animation: cbl-cheio-brilho 2.6s ease-in-out 3;
+	animation: cbl-cheio-brilho 2.6s ease-in-out 3;
+}
+#ini-cabecalho .cbl-nav-li-cheio.chamando span {
+	-webkit-animation: cbl-cheio-rotulo 2.6s ease-in-out 3 both;
+	animation: cbl-cheio-rotulo 2.6s ease-in-out 3 both;
+}
+@keyframes cbl-cheio-rotulo {
+	0% { max-width:0; opacity:0; }
+	16% { max-width:170px; opacity:1; }
+	70% { max-width:170px; opacity:1; }
+	100% { max-width:0; opacity:0; }
+}
+@keyframes cbl-cheio-brilho {
+	0%, 100% { background-color:transparent; }
+	28%, 68% { background-color:rgba(2,51,169,0.10); }
+}
+@media (prefers-reduced-motion: reduce) {
+	#ini-cabecalho .cbl-nav-li-cheio.chamando,
+	#ini-cabecalho .cbl-nav-li-cheio.chamando span {
+		-webkit-animation: none;
+		animation: none;
+	}
+	#ini-cabecalho .cbl-nav-li-cheio span { max-width:170px; opacity:1; }
+}
+
 /* =========================================================================
    O APLICATIVO NAS LOJAS (banner do carrossel, cabecalho, janela do QR,
    Atendimento express, Canais de atendimento e rodape).
