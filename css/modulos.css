@@ -2921,14 +2921,18 @@ hr,ul:after{clear:both}body{font:13px/1.5 cairoregular,Arial,"Liberation Sans",F
  * conserto de espacamento que resolva: o culpado e a palavra "Google Play" ser mais longa.
  *
  * As duas colunas tem a MESMA largura, e o cartao do QR usa a mesma medida: as duas fileiras
- * comecam e terminam no mesmo lugar. */
+ * comecam e terminam no mesmo lugar.
+ *
+ * O ESPACO ENTRE OS DOIS e o mesmo nas duas fileiras, e por isso ele nao pode ser mexido de um
+ * lado so: botao e cartao do QR andam juntos (16px no normal, 24px no grande). Pedido do Roger em
+ * 18/09/2026, depois de ver o banner no ar: "deixe mais separado um do outro". */
 .app-loja {
 	display:inline-block;
 	vertical-align:top;
 	text-decoration:none;
 	padding:9px 14px 9px 44px;
-	margin:0 12px 12px 0;
-	width:152px;
+	margin:0 20px 16px 0;
+	width:172px;
 	position:relative;
 	border-radius:10px;
 	-moz-border-radius:10px;
@@ -2941,8 +2945,8 @@ hr,ul:after{clear:both}body{font:13px/1.5 cairoregular,Arial,"Liberation Sans",F
 }
 .app-lojas-g .app-loja {
 	padding:12px 18px 12px 54px;
-	margin:0 16px 16px 0;
-	width:190px;
+	margin:0 32px 20px 0;
+	width:208px;
 }
 /* sem sobra a direita: a fileira termina no ultimo botao, e nao 12px depois dele */
 .app-loja:last-child,
@@ -2973,6 +2977,13 @@ hr,ul:after{clear:both}body{font:13px/1.5 cairoregular,Arial,"Liberation Sans",F
 .app-loja-txt {
 	display:block;
 	text-align:left;
+}
+/* O TEXTO NAO QUEBRA, NUNCA. Sem isto, "Google Play" cabendo por um fio vira duas linhas e o
+ * botao fica mais alto que o vizinho: foi o que apareceu no site em 18/09/2026. Com `nowrap`, o
+ * dia em que faltar espaco o texto vaza e se ve na hora, em vez de quebrar em silencio. */
+.app-loja-txt-1,
+.app-loja-txt-2 {
+	white-space:nowrap;
 }
 .app-loja-txt-1 {
 	font-family:"montserratregular", Arial, serif;
@@ -3039,8 +3050,8 @@ hr,ul:after{clear:both}body{font:13px/1.5 cairoregular,Arial,"Liberation Sans",F
 	text-align:center;
 	background:#fff;
 	padding:12px 12px 8px 12px;
-	margin:0 12px 12px 0;
-	width:152px;
+	margin:0 20px 16px 0;
+	width:172px;
 	/* sem isto o padding SOMA na largura e o cartao sai 24px maior que o botao: foi o que a
 	   segunda medicao pegou (176px onde a coluna e 152px) */
 	-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;
@@ -3051,20 +3062,20 @@ hr,ul:after{clear:both}body{font:13px/1.5 cairoregular,Arial,"Liberation Sans",F
 }
 .app-qr-img {
 	display:block;
-	width:128px;
-	height:128px;
+	width:148px;
+	height:148px;
 	margin:0 auto;
 }
 /* Na janela do QR o codigo e o assunto da tela, entao ele cresce e ganha ar: 118 -> 160px, com
  * 16px entre os dois cartoes (pedido do Roger em 18/09/2026, "deixe maior e mais separados"). */
 .app-qr-g .app-qr-item {
 	padding:15px 15px 10px 15px;
-	margin:0 16px 16px 0;
-	width:190px;
+	margin:0 32px 20px 0;
+	width:208px;
 }
 .app-qr-g .app-qr-img {
-	width:160px;
-	height:160px;
+	width:178px;
+	height:178px;
 }
 .app-qr-item:last-child {
 	margin-right:0;

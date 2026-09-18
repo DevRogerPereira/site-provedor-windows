@@ -2710,9 +2710,11 @@ hr,ul:after{clear:both}body{font:13px/1.5 cairoregular,Arial,"Liberation Sans",F
 	display:inline-block;
 	vertical-align:top;
 	text-decoration:none;
-	padding:8px 12px 8px 40px;
-	margin:0 8px 8px 0;
-	width:136px;
+	/* natural do maior botao aqui: 136px (medido com a Montserrat). 146 da folga e ainda deixa
+	   os dois lado a lado num telefone de 360px, contando o padding das secoes. */
+	padding:8px 10px 8px 38px;
+	margin:0 10px 12px 0;
+	width:146px;
 	position:relative;
 	border-radius:9px;
 	-moz-border-radius:9px;
@@ -2740,6 +2742,11 @@ hr,ul:after{clear:both}body{font:13px/1.5 cairoregular,Arial,"Liberation Sans",F
 .app-loja-txt {
 	display:block;
 	text-align:left;
+}
+/* o texto nao quebra, pelo mesmo motivo do modulos.css */
+.app-loja-txt-1,
+.app-loja-txt-2 {
+	white-space:nowrap;
 }
 .app-loja-txt-1 {
 	font-family:"montserratregular", Arial, serif;
@@ -2862,7 +2869,7 @@ hr,ul:after{clear:both}body{font:13px/1.5 cairoregular,Arial,"Liberation Sans",F
  * maior botao aqui e 108px (medido), e 116 da a folga sem deixar o botao bambo. Herdar os 136px
  * do caso geral sobraria espaco vazio a direita do texto. */
 #ini-slides .slide-app-acoes .app-loja {
-	margin:0 6px 0 0;
+	margin:0 8px 0 0;
 	padding:6px 10px 6px 32px;
 	width:116px;
 }
