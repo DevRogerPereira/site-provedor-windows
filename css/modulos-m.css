@@ -2702,17 +2702,25 @@ hr,ul:after{clear:both}body{font:13px/1.5 cairoregular,Arial,"Liberation Sans",F
 	margin:0;
 	font-size:0;
 }
+/* A largura e de COLUNA, a mesma decisao do modulos.css: medido em 18/09/2026, o botao da App
+ * Store saia com 116px e o do Google Play com 130px, e dois botoes lado a lado com 14px de
+ * diferenca e o que faz o bloco parecer torto. No celular o QR nao aparece (regra logo abaixo),
+ * entao aqui so os botoes precisam bater. */
 .app-loja {
 	display:inline-block;
 	vertical-align:top;
 	text-decoration:none;
-	padding:8px 14px 8px 40px;
+	padding:8px 12px 8px 40px;
 	margin:0 8px 8px 0;
+	width:136px;
 	position:relative;
 	border-radius:9px;
 	-moz-border-radius:9px;
 	-webkit-border-radius:9px;
 	-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;
+}
+.app-loja:last-child {
+	margin-right:0;
 }
 .app-loja-icone {
 	position:absolute;
@@ -2850,9 +2858,16 @@ hr,ul:after{clear:both}body{font:13px/1.5 cairoregular,Arial,"Liberation Sans",F
 #ini-slides .slide-app-acoes {
 	display:block;
 }
+/* O banner do celular aperta padding e fonte, entao ele tem coluna PROPRIA: a largura natural do
+ * maior botao aqui e 108px (medido), e 116 da a folga sem deixar o botao bambo. Herdar os 136px
+ * do caso geral sobraria espaco vazio a direita do texto. */
 #ini-slides .slide-app-acoes .app-loja {
 	margin:0 6px 0 0;
 	padding:6px 10px 6px 32px;
+	width:116px;
+}
+#ini-slides .slide-app-acoes .app-loja:last-child {
+	margin-right:0;
 }
 #ini-slides .slide-app-acoes .app-loja-icone {
 	left:9px;

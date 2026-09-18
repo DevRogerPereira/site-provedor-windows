@@ -2913,12 +2913,22 @@ hr,ul:after{clear:both}body{font:13px/1.5 cairoregular,Arial,"Liberation Sans",F
 	margin:0;
 	font-size:0;
 }
+/* A LARGURA E DE COLUNA, e nao do texto.
+ *
+ * Medido em 18/09/2026, na bancada: com a largura seguindo o conteudo, o botao da App Store saia
+ * com 131px e o do Google Play com 147px (161 e 180 no tamanho grande). Dezesseis pixels de
+ * diferenca entre dois botoes lado a lado e o que faz o bloco parecer torto de longe, e nao ha
+ * conserto de espacamento que resolva: o culpado e a palavra "Google Play" ser mais longa.
+ *
+ * As duas colunas tem a MESMA largura, e o cartao do QR usa a mesma medida: as duas fileiras
+ * comecam e terminam no mesmo lugar. */
 .app-loja {
 	display:inline-block;
 	vertical-align:top;
 	text-decoration:none;
-	padding:9px 16px 9px 44px;
-	margin:0 10px 10px 0;
+	padding:9px 14px 9px 44px;
+	margin:0 12px 12px 0;
+	width:152px;
 	position:relative;
 	border-radius:10px;
 	-moz-border-radius:10px;
@@ -2927,11 +2937,17 @@ hr,ul:after{clear:both}body{font:13px/1.5 cairoregular,Arial,"Liberation Sans",F
 	transition:transform .18s ease, box-shadow .18s ease, background-color .18s ease;
 }
 .app-loja-g {
-	padding:12px 22px 12px 52px;
+	padding:12px 18px 12px 52px;
 }
 .app-lojas-g .app-loja {
-	padding:12px 22px 12px 54px;
-	margin:0 12px 12px 0;
+	padding:12px 18px 12px 54px;
+	margin:0 16px 16px 0;
+	width:190px;
+}
+/* sem sobra a direita: a fileira termina no ultimo botao, e nao 12px depois dele */
+.app-loja:last-child,
+.app-lojas-g .app-loja:last-child {
+	margin-right:0;
 }
 .app-loja-icone {
 	position:absolute;
@@ -3014,13 +3030,20 @@ hr,ul:after{clear:both}body{font:13px/1.5 cairoregular,Arial,"Liberation Sans",F
 	margin:0;
 	font-size:0;
 }
+/* O CARTAO USA A COLUNA DO BOTAO (152px, ou 190px no grande): as duas fileiras alinham nas duas
+ * bordas. Antes a fileira dos QR terminava 46px antes da dos botoes (67px no tamanho grande),
+ * medido na bancada, e era o segundo motivo de o bloco parecer torto. */
 .app-qr-item {
 	display:inline-block;
 	vertical-align:top;
 	text-align:center;
 	background:#fff;
-	padding:10px 10px 6px 10px;
-	margin:0 10px 8px 0;
+	padding:12px 12px 8px 12px;
+	margin:0 12px 12px 0;
+	width:152px;
+	/* sem isto o padding SOMA na largura e o cartao sai 24px maior que o botao: foi o que a
+	   segunda medicao pegou (176px onde a coluna e 152px) */
+	-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;
 	border-radius:12px;
 	-moz-border-radius:12px;
 	-webkit-border-radius:12px;
@@ -3028,13 +3051,23 @@ hr,ul:after{clear:both}body{font:13px/1.5 cairoregular,Arial,"Liberation Sans",F
 }
 .app-qr-img {
 	display:block;
-	width:96px;
-	height:96px;
+	width:128px;
+	height:128px;
 	margin:0 auto;
 }
+/* Na janela do QR o codigo e o assunto da tela, entao ele cresce e ganha ar: 118 -> 160px, com
+ * 16px entre os dois cartoes (pedido do Roger em 18/09/2026, "deixe maior e mais separados"). */
+.app-qr-g .app-qr-item {
+	padding:15px 15px 10px 15px;
+	margin:0 16px 16px 0;
+	width:190px;
+}
 .app-qr-g .app-qr-img {
-	width:118px;
-	height:118px;
+	width:160px;
+	height:160px;
+}
+.app-qr-item:last-child {
+	margin-right:0;
 }
 .app-qr-loja {
 	font-family:"montserratbold", Arial, serif;
@@ -3158,6 +3191,11 @@ hr,ul:after{clear:both}body{font:13px/1.5 cairoregular,Arial,"Liberation Sans",F
 	position:relative;
 	background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='11' fill='%230bb1f0'/%3E%3Cpath d='M7 12.3l3.2 3.2L17 8.7' fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat left 1px;
 }
+/* Os dois blocos (botoes e QR) ficam lado a lado enquanto couberem, e empilham quando nao couber.
+ * MEDIDO em 18/09/2026, depois de as colunas ficarem iguais: cada fileira passou a ter 396px, e as
+ * duas com o gap dao 818px. O bloco do banner tem 52% da tela (56% abaixo de 1400px), entao a
+ * partir de ~1470px de tela eles ficam lado a lado e abaixo disso empilham. Empilhado nao e
+ * problema: as duas fileiras tem a MESMA largura, entao elas alinham nas duas bordas. */
 #ini-slides .slide-app-acoes {
 	display:flex;
 	align-items:flex-end;
