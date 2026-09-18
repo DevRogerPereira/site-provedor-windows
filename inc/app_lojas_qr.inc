@@ -6,6 +6,12 @@
  * Android so aparece quando a loja publicou; ate la fica so o da Apple, que e
  * o que resolve para quem esta lendo agora.
  *
+ * O TAMANHO TEM QUE CASAR COM O DO BOTAO do mesmo bloco. Desde 18/09/2026 as duas fileiras usam a
+ * MESMA largura de coluna, entao botao "g" com QR "p" deixa a de cima 132px mais larga que a de
+ * baixo e o bloco volta a parecer torto. Quando este arquivo entrar logo depois de
+ * app_lojas_botoes.inc, repita ali o mesmo tamanho. Onde ele aparece sozinho (pg_assine.inc, que
+ * lista as lojas em outro desenho) o "p" e o certo.
+ *
  * No CELULAR o QR nao serve para nada (a pessoa ja esta com o telefone na mao),
  * entao o CSS esconde este bloco e deixa so os botoes das lojas.
  */

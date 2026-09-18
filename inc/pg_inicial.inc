@@ -55,7 +55,10 @@
                         <a href="<?php echo $urlsite . "/" . $cidade . "/assine/" ?>" class="app-intro">Suporte técnico</a>
                         <a href="<?php echo $urlsite . "/" . $cidade . "/assine/" ?>" class="app-intro">Acesse conteúdos digitais</a>
 <?php $app_bt_tam = "g"; $app_bt_tema = "claro"; include("inc/app_lojas_botoes.inc"); ?>
-<?php $app_qr_tam = "p"; include("inc/app_lojas_qr.inc"); ?>
+<?php /* o QR acompanha o TAMANHO DO BOTAO: botao "g" com QR "p" deixava a fileira de cima 132px
+         mais larga que a de baixo, e era o que sobrava de torto neste bloco depois de as colunas
+         ficarem iguais (18/09/2026) */ ?>
+<?php $app_qr_tam = "g"; include("inc/app_lojas_qr.inc"); ?>
                     </div>
                 </div>
 			</div>
@@ -127,7 +130,10 @@
                         <a href="<?php echo $urlsite . "/" . $cidade . "/assine/" ?>" class="app-intro">Suporte técnico</a>
                         <a href="<?php echo $urlsite . "/" . $cidade . "/assine/" ?>" class="app-intro">Acesse conteúdos digitais</a>
 <?php $app_bt_tam = "g"; $app_bt_tema = "claro"; include("inc/app_lojas_botoes.inc"); ?>
-<?php $app_qr_tam = "p"; include("inc/app_lojas_qr.inc"); ?>
+<?php /* o QR acompanha o TAMANHO DO BOTAO: botao "g" com QR "p" deixava a fileira de cima 132px
+         mais larga que a de baixo, e era o que sobrava de torto neste bloco depois de as colunas
+         ficarem iguais (18/09/2026) */ ?>
+<?php $app_qr_tam = "g"; include("inc/app_lojas_qr.inc"); ?>
                     </div>
                 </div>
 			</div>
