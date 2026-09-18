@@ -7,8 +7,9 @@
  * banner do carrossel, o cabecalho, o Atendimento express, os Canais de
  * atendimento, o rodape e a janela do QR code dizerem sempre a mesma coisa.
  *
- * QUANDO O GOOGLE APROVAR: trocar $app_lj_android_no_ar para true. E so isso.
- * Ate la o botao da Play Store aparece como "Em breve", sem link morto.
+ * AS DUAS LOJAS ESTAO NO AR: App Store em 16/09/2026 e Play Store em 18/09/2026.
+ * O "Em breve" do Android saiu de cena; o codigo dele fica, porque loja pode sair
+ * do ar e o caminho de volta tem que existir sem ninguem reescrever partial.
  *
  * O painel do admin continua mandando: se alguem preencher os campos
  * `app_ios` / `app_android` em `tb_config`, eles vencem os padroes daqui.
@@ -21,8 +22,8 @@
 /** A App Store ja publicou (aprovado em 16/09/2026). */
 $app_lj_ios_no_ar = true;
 
-/** A Play Store ainda esta analisando: vira true no dia da aprovacao. */
-$app_lj_android_no_ar = false;
+/** A Play Store publicou em 18/09/2026, as 06h18. Conferido na pagina da loja. */
+$app_lj_android_no_ar = true;
 
 // ---------------------------------------------------------------------------
 // Enderecos
